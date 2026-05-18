@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Dairy Trends Ice Creams Brand Theme */
+:root {
+  /* Brand Colors */
+  --brand-red: #D71920;
+  --brand-red-dark: #B5151A;
+  --cream-white: #FFF8EF;
+  --golden-yellow: #FFD21F;
+  --chocolate-brown: #4A2C2A;
+  --soft-pink: #FFE3EC;
+  
+  /* Semantic tokens mapped to brand */
+  --background: #FFF8EF;
+  --foreground: #4A2C2A;
+  --card: #FFFFFF;
+  --card-foreground: #4A2C2A;
+  --popover: #FFFFFF;
+  --popover-foreground: #4A2C2A;
+  --primary: #D71920;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFD21F;
+  --secondary-foreground: #4A2C2A;
+  --muted: #FFE3EC;
+  --muted-foreground: #6B4A48;
+  --accent: #FFD21F;
+  --accent-foreground: #4A2C2A;
+  --destructive: #D71920;
+  --destructive-foreground: #FFFFFF;
+  --border: #F5DED5;
+  --input: #F5DED5;
+  --ring: #D71920;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-poppins), 'Poppins', sans-serif;
+  --font-display: var(--font-fredoka), 'Fredoka', sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Brand color utilities */
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-dark: var(--brand-red-dark);
+  --color-cream: var(--cream-white);
+  --color-golden: var(--golden-yellow);
+  --color-chocolate: var(--chocolate-brown);
+  --color-pink: var(--soft-pink);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Button glow effect */
+  .btn-glow {
+    box-shadow: 0 0 20px rgba(215, 25, 32, 0.4);
+    transition: box-shadow 0.3s ease;
+  }
+  .btn-glow:hover {
+    box-shadow: 0 0 30px rgba(215, 25, 32, 0.6), 0 0 60px rgba(215, 25, 32, 0.3);
+  }
+  
+  /* 3D card tilt base */
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  /* Gradient backgrounds */
+  .gradient-hero {
+    background: linear-gradient(135deg, #FFF8EF 0%, #FFE3EC 50%, #FFF8EF 100%);
+  }
+  
+  .gradient-red-yellow {
+    background: linear-gradient(135deg, #D71920 0%, #FFD21F 100%);
+  }
+  
+  .gradient-warm {
+    background: linear-gradient(180deg, #FFF8EF 0%, #FFE3EC 100%);
+  }
+  
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-float-delayed {
+    animation: float 6s ease-in-out 2s infinite;
+  }
+  
+  /* Blob animation */
+  @keyframes blob {
+    0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  }
+  
+  .animate-blob {
+    animation: blob 8s ease-in-out infinite;
+  }
+  
+  /* Text shadow for hero */
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(74, 44, 42, 0.2);
+  }
+}
