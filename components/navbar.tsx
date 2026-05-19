@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useId } from 'react'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import { Menu, X, Phone } from 'lucide-react'
 import Image from 'next/image'
 import { navLinks } from '@/lib/data'
@@ -9,24 +9,39 @@ import { navLinks } from '@/lib/data'
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeLink, setActiveLink] = useState('#home')
+  const layoutId = useId()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    // Use passive event listener for scroll
+    const handleScroll = () => setIsScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Track active section on scroll
+  useEffect(() => {
+    const sections = navLinks.map(l => document.querySelector(l.href))
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveLink(`#${entry.target.id}`)
+          }
+        })
+      },
+      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+    )
+    sections.forEach(s => s && observer.observe(s))
+    return () => observer.disconnect()
   }, [])
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     setIsMobileMenuOpen(false)
+    setActiveLink(href)
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
-      // Accessibility: move focus to the section if it is interactive, 
-      // or at least update the URL hash
       window.history.pushState(null, '', href)
     }
   }
@@ -35,24 +50,22 @@ export default function Navbar() {
     <>
       <motion.nav
         aria-label="Main Navigation"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'glass shadow-lg py-2' 
-            : 'bg-transparent py-4'
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
+          isScrolled ? 'glass-navbar py-2' : 'bg-transparent py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <motion.a 
+            <motion.a
               href="#home"
               onClick={(e) => scrollToSection(e, '#home')}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative h-12 w-36 md:h-14 md:w-44 focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-4 rounded"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="relative h-12 w-36 md:h-14 md:w-44 focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-4 rounded shrink-0"
               aria-label="Dairy Trends Home"
             >
               <Image
@@ -64,127 +77,166 @@ export default function Navbar() {
               />
             </motion.a>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1" role="menubar">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  role="menuitem"
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors focus-visible:outline-brand-red focus-visible:outline-2 ${
-                    isScrolled 
-                      ? 'text-chocolate hover:bg-brand-red/10 hover:text-brand-red' 
-                      : 'text-chocolate hover:bg-white/40'
-                  }`}
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-            </div>
+            {/* Desktop Navigation — with sliding pill indicator */}
+            <LayoutGroup>
+              <div className="hidden lg:flex items-center gap-1 bg-white/40 backdrop-blur-sm rounded-full px-2 py-1.5 border border-white/60 shadow-sm">
+                {navLinks.map((link) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 focus-visible:outline-brand-red focus-visible:outline-2 ${
+                      activeLink === link.href ? 'text-white' : 'text-chocolate hover:text-brand-red'
+                    }`}
+                  >
+                    {activeLink === link.href && (
+                      <motion.span
+                        layoutId={layoutId}
+                        className="absolute inset-0 rounded-full bg-brand-red shadow-sm"
+                        style={{ originY: '0px' }}
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{link.name}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </LayoutGroup>
 
-            {/* CTA Button */}
-            <div className="hidden lg:flex items-center gap-4">
+            {/* CTA Group */}
+            <div className="hidden lg:flex items-center gap-3">
               <motion.a
                 href="tel:+919876543210"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 text-chocolate font-medium focus-visible:outline-brand-red focus-visible:outline-2 rounded-md p-1 touch-target"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="flex items-center gap-2 px-4 py-2 rounded-full text-chocolate font-medium hover:bg-brand-red/8 transition-colors focus-visible:outline-brand-red focus-visible:outline-2 touch-target"
                 aria-label="Call us at +91 98765 43210"
               >
-                <Phone className="w-5 h-5 text-brand-red" aria-hidden="true" />
-                <span className="hidden xl:inline">+91 98765 43210</span>
+                <div className="w-8 h-8 bg-brand-red/10 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <Phone className="w-4 h-4 text-brand-red" />
+                </div>
+                <span className="hidden xl:inline text-sm">+91 98765 43210</span>
               </motion.a>
               <motion.a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, '#contact')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-brand-red text-white px-6 py-2.5 rounded-full font-semibold btn-glow transition-all focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 inline-flex items-center justify-center"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="bg-brand-red text-white px-5 py-2.5 rounded-full font-semibold text-sm btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 Order Now
               </motion.a>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <motion.button
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.88 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full bg-brand-red text-white touch-target focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="lg:hidden w-11 h-11 bg-brand-red rounded-full flex items-center justify-center text-white touch-target focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 shadow-lg"
               aria-expanded={isMobileMenuOpen}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-controls="mobile-menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
+              <AnimatePresence mode="wait">
+                {isMobileMenuOpen ? (
+                  <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <X className="w-5 h-5" aria-hidden="true" />
+                  </motion.span>
+                ) : (
+                  <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <Menu className="w-5 h-5" aria-hidden="true" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </motion.button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — slide-in from right with blur backdrop */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <div 
-              className="absolute inset-0 bg-chocolate/50 backdrop-blur-sm"
+            {/* Backdrop */}
+            <motion.div
+              className="absolute inset-0 bg-chocolate/40 backdrop-blur-md"
               onClick={() => setIsMobileMenuOpen(false)}
               aria-hidden="true"
             />
-            <motion.div 
-              className="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-cream shadow-2xl overflow-y-auto"
+
+            {/* Panel */}
+            <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 32 }}
               role="dialog"
               aria-label="Mobile Navigation"
               aria-modal="true"
+              className="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-cream shadow-2xl flex flex-col overflow-y-auto"
             >
-              <div className="flex flex-col h-full pt-24 pb-8 px-6">
-                <div className="flex flex-col gap-2" role="menu">
-                  {navLinks.map((link, index) => (
-                    <motion.a
-                      key={link.name}
-                      href={link.href}
-                      onClick={(e) => scrollToSection(e, link.href)}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      role="menuitem"
-                      className="text-left px-4 py-3 rounded-xl text-lg font-medium text-chocolate hover:bg-brand-red/10 hover:text-brand-red transition-colors focus-visible:outline-brand-red focus-visible:outline-2"
-                    >
-                      {link.name}
-                    </motion.a>
-                  ))}
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-chocolate/8">
+                <div className="relative h-10 w-32">
+                  <Image src="/images/dairy-trends-logo.png" alt="Dairy Trends" fill className="object-contain" />
                 </div>
-                
-                <div className="mt-auto space-y-4 pt-6 border-t border-brand-red/10">
-                  <a
-                    href="tel:+919876543210"
-                    className="flex items-center gap-3 px-4 py-3 text-chocolate font-medium touch-target focus-visible:outline-brand-red focus-visible:outline-2 rounded-xl"
-                  >
-                    <Phone className="w-5 h-5 text-brand-red" aria-hidden="true" />
-                    +91 98765 43210
-                  </a>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-9 h-9 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red focus-visible:outline-brand-red"
+                  aria-label="Close menu"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Links */}
+              <nav className="flex flex-col gap-1 px-4 pt-6 flex-1" role="menu">
+                {navLinks.map((link, index) => (
                   <motion.a
-                    href="#contact"
-                    onClick={(e) => scrollToSection(e, '#contact')}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full bg-brand-red text-white px-6 py-3 rounded-full font-semibold btn-glow text-center inline-block focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.04 + 0.1 }}
+                    role="menuitem"
+                    className={`flex items-center px-4 py-3 rounded-2xl text-base font-medium transition-all duration-200 focus-visible:outline-brand-red focus-visible:outline-2 ${
+                      activeLink === link.href
+                        ? 'bg-brand-red text-white shadow-sm'
+                        : 'text-chocolate hover:bg-brand-red/8 hover:text-brand-red'
+                    }`}
                   >
-                    Order Now
+                    {link.name}
                   </motion.a>
-                </div>
+                ))}
+              </nav>
+
+              {/* Footer CTAs */}
+              <div className="px-4 pb-8 pt-4 border-t border-chocolate/8 space-y-3">
+                <a
+                  href="tel:+919876543210"
+                  className="flex items-center gap-3 px-4 py-3 text-chocolate font-medium hover:text-brand-red transition-colors focus-visible:outline-brand-red focus-visible:outline-2 rounded-xl touch-target"
+                >
+                  <div className="w-9 h-9 bg-brand-red/10 rounded-full flex items-center justify-center" aria-hidden="true">
+                    <Phone className="w-4 h-4 text-brand-red" />
+                  </div>
+                  +91 98765 43210
+                </a>
+                <motion.a
+                  href="#contact"
+                  onClick={(e) => scrollToSection(e, '#contact')}
+                  whileTap={{ scale: 0.96 }}
+                  className="block w-full bg-brand-red text-white px-6 py-3.5 rounded-2xl font-semibold text-center btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
+                >
+                  Order Now
+                </motion.a>
               </div>
             </motion.div>
           </motion.div>

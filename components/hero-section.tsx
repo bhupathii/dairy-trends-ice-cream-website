@@ -1,12 +1,43 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { IceCream, Sparkles, Heart } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { IceCream, Star, ChevronDown } from 'lucide-react'
 import Image from 'next/image'
+import { useRef } from 'react'
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: 'easeOut' as const }
+  }
+}
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.85, y: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: 'easeOut' as const, delay: 0.2 }
+  }
+}
 
 export default function HeroSection() {
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
-    e.preventDefault()
+  const ref = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+
+  const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -15,116 +46,76 @@ export default function HeroSection() {
   }
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden gradient-hero flex items-center">
-      {/* Animated Background Blobs */}
+    <section
+      id="home"
+      ref={ref}
+      className="relative min-h-screen overflow-hidden gradient-hero flex items-center"
+      aria-label="Hero section"
+    >
+      {/* Parallax background blobs — subtle, not distracting */}
       <motion.div
         aria-hidden="true"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360]
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-20 -left-32 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"
-      />
-      <motion.div
-        aria-hidden="true"
-        animate={{ 
-          scale: [1.2, 1, 1.2],
-          rotate: [360, 180, 0]
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-        className="absolute bottom-20 -right-32 w-[500px] h-[500px] bg-golden/20 rounded-full blur-3xl pointer-events-none"
-      />
-      <motion.div
-        aria-hidden="true"
-        animate={{ 
-          scale: [1, 1.3, 1],
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink/30 rounded-full blur-3xl pointer-events-none"
-      />
-
-      {/* Floating Ice Cream Decorations */}
-      <motion.div
-        aria-hidden="true"
-        animate={{ y: [-20, 20, -20], rotate: [-5, 5, -5] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-32 right-[10%] hidden lg:block pointer-events-none"
+        style={{ y: bgY }}
+        className="absolute inset-0 pointer-events-none"
       >
-        <div className="w-16 h-16 bg-pink rounded-full shadow-lg" />
-      </motion.div>
-      <motion.div
-        aria-hidden="true"
-        animate={{ y: [20, -20, 20], rotate: [5, -5, 5] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-40 left-[5%] hidden lg:block pointer-events-none"
-      >
-        <div className="w-12 h-12 bg-golden rounded-full shadow-lg" />
-      </motion.div>
-      <motion.div
-        aria-hidden="true"
-        animate={{ y: [-15, 15, -15] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/2 right-[5%] hidden lg:block pointer-events-none"
-      >
-        <div className="w-8 h-8 bg-brand-red/40 rounded-full shadow-lg" />
+        <div className="absolute top-[-10%] left-[-5%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-brand-red/8 blur-[80px]" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[45vw] h-[45vw] max-w-[500px] max-h-[500px] rounded-full bg-golden/15 blur-[80px]" />
+        <div className="absolute top-[30%] right-[20%] w-[30vw] h-[30vw] max-w-[350px] max-h-[350px] rounded-full bg-pink/25 blur-[60px]" />
       </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 lg:pt-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center min-h-[80vh]">
-          {/* Left Content */}
+      {/* Decorative floating orbs */}
+      <motion.div
+        aria-hidden="true"
+        animate={{ y: [-8, 8, -8], rotate: [0, 8, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-[15%] right-[8%] hidden lg:block w-16 h-16 bg-gradient-to-br from-golden to-golden-light rounded-full shadow-lg shadow-golden/30 pointer-events-none"
+      />
+      <motion.div
+        aria-hidden="true"
+        animate={{ y: [8, -12, 8] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+        className="absolute bottom-[25%] left-[6%] hidden lg:block w-10 h-10 bg-brand-red/80 rounded-full shadow-lg shadow-brand-red/30 pointer-events-none"
+      />
+      <motion.div
+        aria-hidden="true"
+        animate={{ y: [-12, 4, -12], rotate: [0, -8, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+        className="absolute top-[55%] right-[4%] hidden xl:block w-7 h-7 bg-pink-deep rounded-full shadow-md pointer-events-none"
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24 lg:pt-32 w-full">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[82vh]">
+
+          {/* ── Left: Content ── */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center lg:text-left"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-center lg:text-left order-2 lg:order-1"
           >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md mb-6"
-            >
-              <span className="w-2 h-2 bg-brand-red rounded-full animate-pulse" aria-hidden="true" />
-              <span className="text-sm font-medium text-chocolate">Premium Quality Ice Creams</span>
+            {/* Eyebrow badge */}
+            <motion.div variants={itemVariants} className="flex justify-center lg:justify-start mb-6">
+              <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-white/60">
+                <span className="w-2 h-2 bg-brand-red rounded-full animate-pulse" aria-hidden="true" />
+                <span className="text-sm font-semibold text-chocolate tracking-wide">Premium Quality Ice Creams</span>
+              </div>
             </motion.div>
 
-            {/* Logo Display */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="mb-6 lg:hidden relative h-24 w-48 mx-auto"
-            >
-              <Image
-                src="/images/dairy-trends-logo.png"
-                alt="Dairy Trends Ice Creams logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </motion.div>
-
-            {/* Main Heading */}
+            {/* Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-chocolate leading-tight mb-4"
+              variants={itemVariants}
+              className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-4"
               style={{ fontFamily: 'var(--font-fredoka)' }}
             >
-              <span className="text-brand-red">Dairy Trends</span>
+              <span className="text-gradient-brand">Dairy Trends</span>
               <br />
-              Ice Creams
+              <span className="text-chocolate">Ice Creams</span>
             </motion.h1>
 
             {/* Tagline */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-xl sm:text-2xl lg:text-3xl font-semibold text-golden mb-4"
+              variants={itemVariants}
+              className="text-xl sm:text-2xl font-semibold text-golden mb-4"
               style={{ fontFamily: 'var(--font-fredoka)' }}
             >
               Taste the Trend of Happiness
@@ -132,149 +123,141 @@ export default function HeroSection() {
 
             {/* Description */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="text-lg text-chocolate/70 max-w-xl mx-auto lg:mx-0 mb-8"
+              variants={itemVariants}
+              className="text-base sm:text-lg text-chocolate/65 max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed"
             >
-              Fresh, creamy, and delicious ice creams made to bring joy in every scoop. 
-              Experience the perfect blend of taste and happiness.
+              Fresh, creamy, and delicious ice creams crafted to bring joy in every scoop.
+              Experience the perfect blend of taste and happiness — for everyone, every occasion.
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-12"
             >
-              <motion.a
-                href="#flavours"
-                onClick={(e) => scrollToSection(e, '#flavours')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-brand-red text-white px-8 py-4 rounded-full font-semibold text-lg btn-glow flex items-center justify-center gap-2 focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => scrollToSection('#flavours')}
+                className="inline-flex items-center justify-center gap-2 bg-brand-red text-white px-8 py-4 rounded-2xl font-semibold text-base btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 <IceCream className="w-5 h-5" aria-hidden="true" />
                 Explore Flavours
-              </motion.a>
-              <motion.a
-                href="#contact"
-                onClick={(e) => scrollToSection(e, '#contact')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-golden text-chocolate px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center gap-2 focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => scrollToSection('#contact')}
+                className="inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm text-chocolate px-8 py-4 rounded-2xl font-semibold text-base border border-chocolate/15 shadow-sm hover:border-golden hover:bg-golden/5 transition-all focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 Order Now
-              </motion.a>
+              </motion.button>
             </motion.div>
 
-            {/* Stats Cards */}
+            {/* Social proof stats */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4"
+              variants={itemVariants}
+              className="flex flex-wrap justify-center lg:justify-start gap-3"
             >
               {[
-                { icon: IceCream, label: '20+ Flavours', color: 'bg-brand-red' },
-                { icon: Sparkles, label: 'Fresh Taste', color: 'bg-golden' },
-                { icon: Heart, label: 'Family Favourite', color: 'bg-pink' }
-              ].map((stat, index) => (
+                { value: '43+', label: 'Flavours', bg: 'bg-brand-red/10', text: 'text-brand-red' },
+                { value: '5★', label: 'Rated', bg: 'bg-golden/20', text: 'text-chocolate-mid' },
+                { value: '100%', label: 'Fresh', bg: 'bg-pink/50', text: 'text-chocolate-mid' },
+              ].map((stat) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.9 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="glass px-5 py-3 rounded-2xl flex items-center gap-3 shadow-lg"
+                  whileHover={{ y: -3, scale: 1.03 }}
+                  className={`${stat.bg} px-5 py-2.5 rounded-2xl border border-white/60 shadow-sm backdrop-blur-sm`}
                 >
-                  <div className={`${stat.color} p-2 rounded-xl`} aria-hidden="true">
-                    <stat.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <span className="font-semibold text-chocolate">{stat.label}</span>
+                  <div className={`text-lg font-bold ${stat.text}`}>{stat.value}</div>
+                  <div className="text-xs font-medium text-chocolate/60">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Hero Image */}
+          {/* ── Right: Hero Image ── */}
           <motion.div
-            initial={{ opacity: 0, x: 50, scale: 0.8 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative flex items-center justify-center mt-12 lg:mt-0"
+            variants={imageVariants}
+            initial="hidden"
+            animate="visible"
+            className="relative flex items-center justify-center order-1 lg:order-2 mt-8 lg:mt-0"
           >
-            {/* Floating Background Circle */}
+            {/* Rotating gradient ring */}
             <motion.div
               aria-hidden="true"
               animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-              className="absolute w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] rounded-full bg-gradient-to-br from-brand-red/20 via-golden/20 to-pink/20"
+              transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+              className="absolute w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] lg:w-[520px] lg:h-[520px] rounded-full pointer-events-none"
+              style={{
+                background: 'conic-gradient(from 0deg, rgba(215,25,32,0.15), rgba(255,204,0,0.2), rgba(255,232,240,0.3), rgba(215,25,32,0.15))',
+              }}
             />
-            
-            {/* Main Ice Cream Image */}
+
+            {/* Inner cream circle */}
+            <div
+              aria-hidden="true"
+              className="absolute w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] lg:w-[450px] lg:h-[450px] rounded-full bg-gradient-to-br from-cream/80 via-pink/40 to-cream pointer-events-none"
+            />
+
+            {/* Main hero image — floating */}
             <motion.div
               animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               className="relative z-10"
             >
-              <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] lg:w-[450px] lg:h-[450px]">
+              <div className="relative w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[440px] lg:h-[440px]">
                 <Image
                   src="https://images.unsplash.com/photo-1576506295286-5cda18df43e7?w=600&h=600&fit=crop"
-                  alt="Delicious strawberry and vanilla ice cream cone"
+                  alt="Delicious strawberry and vanilla ice cream cone from Dairy Trends"
                   fill
                   className="object-contain drop-shadow-2xl"
                   priority
-                  sizes="(max-width: 768px) 300px, (max-width: 1024px) 350px, 450px"
+                  sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 440px"
                 />
               </div>
             </motion.div>
 
-            {/* Floating Small Ice Creams */}
+            {/* Floating accent bubbles */}
             <motion.div
               aria-hidden="true"
-              animate={{ y: [-20, 0, -20], rotate: [-10, 10, -10] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-4 -right-4 lg:top-10 lg:right-10 w-20 h-20 lg:w-28 lg:h-28 rounded-full overflow-hidden shadow-xl border-4 border-white"
+              animate={{ y: [-18, 0, -18], rotate: [-8, 8, -8] }}
+              transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-2 -right-2 lg:top-8 lg:right-4 w-20 h-20 lg:w-28 lg:h-28 rounded-2xl overflow-hidden shadow-xl border-2 border-white z-20"
             >
               <Image
                 src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=200&h=200&fit=crop"
                 alt=""
                 fill
                 className="object-cover"
-                sizes="(max-width: 1024px) 80px, 112px"
+                sizes="112px"
               />
             </motion.div>
 
             <motion.div
               aria-hidden="true"
-              animate={{ y: [0, -20, 0], rotate: [10, -10, 10] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -bottom-4 -left-4 lg:bottom-20 lg:left-0 w-16 h-16 lg:w-24 lg:h-24 rounded-full overflow-hidden shadow-xl border-4 border-white"
+              animate={{ y: [0, -16, 0], rotate: [6, -6, 6] }}
+              transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute -bottom-2 -left-2 lg:bottom-14 lg:left-0 w-16 h-16 lg:w-24 lg:h-24 rounded-2xl overflow-hidden shadow-xl border-2 border-white z-20"
             >
               <Image
                 src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=200&h=200&fit=crop"
                 alt=""
                 fill
                 className="object-cover"
-                sizes="(max-width: 1024px) 64px, 96px"
+                sizes="96px"
               />
             </motion.div>
 
+            {/* Rating badge */}
             <motion.div
               aria-hidden="true"
-              animate={{ y: [-15, 5, -15] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute bottom-20 -right-4 lg:bottom-32 lg:-right-8 w-14 h-14 lg:w-20 lg:h-20 rounded-full overflow-hidden shadow-xl border-4 border-white"
+              animate={{ y: [-8, 4, -8] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+              className="absolute bottom-16 -right-2 lg:-right-6 z-20 bg-white rounded-2xl px-3 py-2 shadow-xl border border-golden/20 flex items-center gap-2"
             >
-              <Image
-                src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=200&h=200&fit=crop"
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 56px, 80px"
-              />
+              <Star className="w-4 h-4 fill-golden text-golden" />
+              <span className="text-sm font-bold text-chocolate">4.9/5</span>
             </motion.div>
           </motion.div>
         </div>
@@ -284,24 +267,19 @@ export default function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        transition={{ delay: 1.8 }}
+        style={{ opacity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
+        <span className="text-xs font-medium text-chocolate/50 tracking-widest uppercase">Scroll</span>
         <motion.button
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 cursor-pointer focus-visible:outline-brand-red focus-visible:outline-2 rounded-xl p-2 touch-target bg-transparent border-none"
-          onClick={(e) => scrollToSection(e, '#flavours')}
+          onClick={() => scrollToSection('#flavours')}
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="scroll-indicator focus-visible:outline-brand-red focus-visible:outline-2 rounded-full cursor-pointer bg-transparent border-2 border-chocolate/20 hover:border-brand-red/40 transition-colors"
           aria-label="Scroll to explore flavours"
         >
-          <span className="text-sm text-chocolate/60 font-medium">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-chocolate/30 rounded-full flex justify-center pt-2">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-1.5 bg-brand-red rounded-full"
-            />
-          </div>
+          <ChevronDown className="w-4 h-4 text-chocolate/40" />
         </motion.button>
       </motion.div>
     </section>

@@ -2,159 +2,199 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Tag } from 'lucide-react'
 import Image from 'next/image'
 import { products } from '@/lib/data'
 
-interface TiltCardProps {
+interface ProductCardProps {
   product: typeof products[0]
   index: number
   isInView: boolean
 }
 
-function TiltCard({ product, index, isInView }: TiltCardProps) {
+function ProductCard({ product, index, isInView }: ProductCardProps) {
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
-    <motion.div
+    <motion.article
       layout
-      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      initial={{ opacity: 0, y: 40, scale: 0.94 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-      transition={{ delay: index * 0.05, duration: 0.4 }}
-      className="relative group focus-within:ring-4 focus-within:ring-brand-red/50 rounded-3xl h-full"
+      exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.18 } }}
+      transition={{ delay: index * 0.04, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="product-card rounded-3xl overflow-hidden flex flex-col h-full group"
+      aria-label={product.name}
     >
-      <div 
-        className="glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full flex flex-col bg-white"
-      >
-        {/* Image */}
-        <div className="relative h-56 overflow-hidden bg-white/50 shrink-0">
+      {/* Image container */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-cream to-pink/30 shrink-0" style={{ height: '220px' }}>
+        <motion.div
+          animate={{ scale: isHovered ? 1.08 : 1 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-0"
+        >
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
-          
-          {product.badge && (
-            <div className="absolute top-4 right-4 bg-golden text-chocolate text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
-              {product.badge}
-            </div>
-          )}
-        </div>
+        </motion.div>
 
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-grow bg-white/40">
-          <div className="flex justify-between items-start mb-2 gap-2">
-            <h3 className="font-bold text-chocolate text-xl leading-tight">{product.name}</h3>
-          </div>
-          <p className="text-chocolate/60 text-sm mb-4 flex-grow">{product.description}</p>
-          
-          <div className="flex items-center justify-between mt-auto">
-            <span className="text-sm font-medium text-chocolate/80 bg-white/50 px-3 py-1 rounded-full">
-              {product.size}
-            </span>
-            <motion.button
-              type="button"
-              whileHover={{ x: 5 }}
-              className="flex items-center gap-2 text-brand-red font-semibold group-focus-visible:outline-brand-red group-focus-visible:outline-2 rounded"
-              aria-label={`Explore ${product.name}`}
-            >
-              <span>Explore</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </motion.button>
-          </div>
+        {/* Subtle gradient overlay at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+
+        {/* Badge */}
+        {product.badge && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute top-3 left-3 z-10 flex items-center gap-1 bg-golden text-chocolate text-[11px] font-bold px-2.5 py-1 rounded-full shadow-md"
+          >
+            <Tag className="w-2.5 h-2.5" aria-hidden="true" />
+            {product.badge}
+          </motion.div>
+        )}
+
+        {/* Category tag */}
+        <div className="absolute bottom-3 right-3 z-10 bg-white/90 backdrop-blur-sm text-chocolate/70 text-[11px] font-semibold px-2.5 py-1 rounded-full">
+          {product.size}
         </div>
       </div>
-    </motion.div>
+
+      {/* Card body */}
+      <div className="p-5 flex flex-col flex-grow">
+        <div className="mb-1">
+          <span className="text-[11px] font-semibold text-brand-red/70 uppercase tracking-widest">{product.category}</span>
+        </div>
+        <h3 className="font-bold text-chocolate text-lg leading-snug mb-2">{product.name}</h3>
+        <p className="text-chocolate/55 text-sm leading-relaxed mb-5 flex-grow line-clamp-2">{product.description}</p>
+
+        <motion.button
+          type="button"
+          whileHover={{ x: 2 }}
+          whileTap={{ scale: 0.97 }}
+          className="self-start flex items-center gap-2 bg-brand-red/8 hover:bg-brand-red text-brand-red hover:text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-250 focus-visible:outline-brand-red focus-visible:outline-2"
+          aria-label={`Explore ${product.name}`}
+        >
+          <span>Explore</span>
+          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+        </motion.button>
+      </div>
+    </motion.article>
   )
 }
 
 export default function ProductsSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [activeCategory, setActiveCategory] = useState('All')
 
-  // Derive unique categories from products
-  const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))].sort()
+  const categories = ['All', ...Array.from(new Set(products.map(p => p.category))).sort()]
 
-  const filteredProducts = activeCategory === 'All' 
-    ? products 
+  const filteredProducts = activeCategory === 'All'
+    ? products
     : products.filter(p => p.category === activeCategory)
 
   return (
-    <section id="products" className="relative py-20 lg:py-28 overflow-hidden bg-background">
-      {/* Background */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-pink/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+    <section id="products" className="relative py-24 lg:py-32 overflow-hidden bg-background">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-pink/30 rounded-full blur-[80px] pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-golden/12 rounded-full blur-[70px] pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
-        {/* Section Header */}
+
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 lg:mb-12"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-10 lg:mb-14"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.2 }}
-            className="inline-block bg-golden/20 text-chocolate px-4 py-2 rounded-full text-sm font-semibold mb-4"
+            transition={{ delay: 0.15, duration: 0.5 }}
+            className="section-badge mb-5 mx-auto w-fit"
           >
             Our Products
-          </motion.span>
-          <h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4"
+          </motion.div>
+          <h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4 tracking-tight"
             style={{ fontFamily: 'var(--font-fredoka)' }}
           >
-            Explore Our <span className="text-brand-red">Range</span>
+            Explore Our{' '}
+            <span className="text-gradient-brand">Range</span>
           </h2>
-          <p className="text-chocolate/70 max-w-2xl mx-auto text-lg">
-            From classic cups to indulgent sundaes, we have the perfect frozen treat 
-            for every occasion and craving.
+          <p className="text-chocolate/60 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
+            From classic cups to indulgent sundaes — the perfect frozen treat for every moment.
           </p>
         </motion.div>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        {/* Category filter — animated pill buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="flex flex-wrap justify-center gap-2 mb-10 lg:mb-14"
+          role="group"
+          aria-label="Filter products by category"
+        >
           {categories.map((category) => (
-            <button
+            <motion.button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 focus-visible:outline-brand-red ${
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.95 }}
+              className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-250 focus-visible:outline-brand-red focus-visible:outline-2 ${
                 activeCategory === category
-                  ? 'bg-brand-red text-white shadow-md'
-                  : 'bg-white/50 text-chocolate hover:bg-white/80'
+                  ? 'bg-brand-red text-white shadow-md shadow-brand-red/25'
+                  : 'bg-white/70 text-chocolate/70 hover:text-chocolate border border-chocolate/10 hover:border-brand-red/20 hover:bg-white'
               }`}
+              aria-pressed={activeCategory === category}
             >
               {category}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        <motion.div 
+        {/* Products grid */}
+        <motion.div
           layout
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6"
         >
           <AnimatePresence mode="popLayout">
             {filteredProducts.map((product, index) => (
-              <TiltCard 
-                key={product.name} 
-                product={product} 
-                index={index} 
-                isInView={isInView} 
+              <ProductCard
+                key={product.name}
+                product={product}
+                index={index}
+                isInView={isInView}
               />
             ))}
           </AnimatePresence>
         </motion.div>
-        
+
         {filteredProducts.length === 0 && (
-          <div className="text-center py-12 text-chocolate/60">
-            No products found in this category.
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-16 text-chocolate/50"
+          >
+            <p className="text-lg">No products found in this category.</p>
+          </motion.div>
         )}
+
+        {/* Result count */}
+        <motion.p
+          layout
+          className="text-center text-sm text-chocolate/40 mt-6"
+        >
+          Showing {filteredProducts.length} of {products.length} products
+        </motion.p>
       </div>
     </section>
   )
 }
-

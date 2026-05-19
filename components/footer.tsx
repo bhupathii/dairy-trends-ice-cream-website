@@ -1,159 +1,199 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { navLinks, contactInfo } from '@/lib/data'
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
+}
+
+const colVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' as const } }
+}
+
+const SOCIAL_LINKS = [
+  { icon: Facebook, href: '#', label: 'Facebook', color: 'hover:bg-[#1877F2]' },
+  { icon: Instagram, href: '#', label: 'Instagram', color: 'hover:bg-[#E1306C]' },
+  { icon: Twitter, href: '#', label: 'Twitter / X', color: 'hover:bg-[#1DA1F2]' },
+  { icon: Youtube, href: '#', label: 'YouTube', color: 'hover:bg-[#FF0000]' },
+]
+
+const PRODUCTS = ['Ice Cream Cups', 'Waffle Cones', 'Family Packs', 'Sundaes', 'Kulfi Range', 'Tubs']
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+    if (element) element.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <footer className="relative bg-chocolate text-white overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-full h-1 gradient-red-yellow pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-20 left-10 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+    <footer className="relative bg-chocolate overflow-hidden" aria-label="Site footer">
+      {/* Top gradient bar */}
+      <div className="h-1 w-full gradient-red-yellow" aria-hidden="true" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
+      {/* Background ambient glows */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-[-5%] left-[10%] w-80 h-80 bg-brand-red/10 rounded-full blur-[70px]" />
+        <div className="absolute bottom-[-5%] right-[10%] w-72 h-72 bg-golden/8 rounded-full blur-[70px]" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Main footer content */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pt-16 pb-12"
+        >
+
           {/* Brand Column */}
-          <div className="lg:col-span-1">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-6"
-            >
-              <div className="inline-block bg-white p-3 rounded-2xl shadow-sm border border-white/5">
-                <div className="relative h-12 w-36 md:h-14 md:w-44">
-                  <Image
-                    src="/images/dairy-trends-logo.png"
-                    alt="Dairy Trends Ice Creams Logo"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 144px, 176px"
-                    priority
-                  />
-                </div>
+          <motion.div variants={colVariants} className="lg:col-span-1">
+            <div className="inline-block bg-white/95 p-3 rounded-2xl shadow-md mb-6">
+              <div className="relative h-12 w-36">
+                <Image
+                  src="/images/dairy-trends-logo.png"
+                  alt="Dairy Trends Ice Creams Logo"
+                  fill
+                  className="object-contain"
+                  sizes="144px"
+                />
               </div>
-            </motion.div>
-            <p className="text-white/70 mb-6 leading-relaxed">
-              Dairy Trends Ice Creams brings you fresh, creamy, and delicious 
-              ice creams for every sweet moment. Taste the trend of happiness!
+            </div>
+            <p className="text-white/60 mb-6 leading-relaxed text-sm">
+              Dairy Trends Ice Creams brings you fresh, creamy, and delicious ice creams for every sweet moment.{' '}
+              <span className="text-golden font-medium">Taste the trend of happiness!</span>
             </p>
-            
+
             {/* Social Icons */}
-            <div className="flex gap-3">
-              {[
-                { icon: Facebook, href: '#', label: 'Facebook' },
-                { icon: Instagram, href: '#', label: 'Instagram' },
-                { icon: Twitter, href: '#', label: 'Twitter' },
-                { icon: Youtube, href: '#', label: 'YouTube' }
-              ].map((social, index) => (
+            <div className="flex gap-2.5" role="list" aria-label="Social media links">
+              {SOCIAL_LINKS.map((social) => (
                 <motion.a
-                  key={index}
+                  key={social.label}
                   href={social.href}
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-white/10 hover:bg-brand-red rounded-full flex items-center justify-center transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 touch-target"
+                  role="listitem"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.92 }}
+                  className={`w-10 h-10 bg-white/10 ${social.color} rounded-full flex items-center justify-center transition-all duration-200 focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 touch-target border border-white/10 hover:border-transparent`}
                   aria-label={`Visit our ${social.label} page`}
+                  rel="noopener noreferrer"
                 >
-                  <social.icon className="w-5 h-5" aria-hidden="true" />
+                  <social.icon className="w-4 h-4 text-white" aria-hidden="true" />
                 </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-bold mb-6 text-golden">Quick Links</h4>
-            <ul className="space-y-3">
+          <motion.div variants={colVariants}>
+            <h3 className="text-sm font-bold uppercase tracking-widest text-golden/80 mb-5">Quick Links</h3>
+            <ul className="space-y-2.5" role="list">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <motion.button
                     type="button"
                     onClick={() => scrollToSection(link.href)}
-                    whileHover={{ x: 5 }}
-                    className="text-white/70 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded"
+                    whileHover={{ x: 4 }}
+                    className="flex items-center gap-2 text-white/55 hover:text-white text-sm transition-colors duration-200 focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded group"
                   >
+                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-golden" aria-hidden="true" />
                     {link.name}
                   </motion.button>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Products */}
-          <div>
-            <h4 className="text-lg font-bold mb-6 text-golden">Our Products</h4>
-            <ul className="space-y-3">
-              {['Ice Cream Cups', 'Cones', 'Family Packs', 'Sundaes', 'Ice Cream Cakes', 'Milkshakes'].map((item) => (
+          {/* Our Products */}
+          <motion.div variants={colVariants}>
+            <h3 className="text-sm font-bold uppercase tracking-widest text-golden/80 mb-5">Our Products</h3>
+            <ul className="space-y-2.5" role="list">
+              {PRODUCTS.map((item) => (
                 <li key={item}>
                   <motion.button
                     type="button"
                     onClick={() => scrollToSection('#products')}
-                    whileHover={{ x: 5 }}
-                    className="text-white/70 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded"
+                    whileHover={{ x: 4 }}
+                    className="flex items-center gap-2 text-white/55 hover:text-white text-sm transition-colors duration-200 focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded group"
                   >
+                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-golden" aria-hidden="true" />
                     {item}
                   </motion.button>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-bold mb-6 text-golden">Contact Info</h4>
-            <ul className="space-y-4">
+          <motion.div variants={colVariants}>
+            <h3 className="text-sm font-bold uppercase tracking-widest text-golden/80 mb-5">Get In Touch</h3>
+            <ul className="space-y-4" role="list">
               <li className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="w-9 h-9 bg-brand-red/20 rounded-xl flex items-center justify-center shrink-0 mt-0.5" aria-hidden="true">
+                  <Phone className="w-4 h-4 text-brand-red-light" />
+                </div>
                 <div>
-                  <p className="text-white/70 text-sm">Call Us</p>
-                  <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="text-white hover:text-golden transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">
+                  <p className="text-white/40 text-xs font-medium mb-0.5 uppercase tracking-wide">Call Us</p>
+                  <a
+                    href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                    className="text-white hover:text-golden text-sm transition-colors focus-visible:outline-white focus-visible:outline-2 rounded font-medium"
+                  >
                     {contactInfo.phone}
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="w-9 h-9 bg-brand-red/20 rounded-xl flex items-center justify-center shrink-0 mt-0.5" aria-hidden="true">
+                  <Mail className="w-4 h-4 text-brand-red-light" />
+                </div>
                 <div>
-                  <p className="text-white/70 text-sm">Email Us</p>
-                  <a href={`mailto:${contactInfo.email}`} className="text-white hover:text-golden transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">
+                  <p className="text-white/40 text-xs font-medium mb-0.5 uppercase tracking-wide">Email Us</p>
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="text-white hover:text-golden text-sm transition-colors focus-visible:outline-white focus-visible:outline-2 rounded break-all font-medium"
+                  >
                     {contactInfo.email}
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="w-9 h-9 bg-brand-red/20 rounded-xl flex items-center justify-center shrink-0 mt-0.5" aria-hidden="true">
+                  <MapPin className="w-4 h-4 text-brand-red-light" />
+                </div>
                 <div>
-                  <p className="text-white/70 text-sm">Visit Us</p>
-                  <p className="text-white">{contactInfo.address}</p>
+                  <p className="text-white/40 text-xs font-medium mb-0.5 uppercase tracking-wide">Visit Us</p>
+                  <p className="text-white/80 text-sm leading-relaxed">{contactInfo.address}</p>
                 </div>
               </li>
             </ul>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Divider */}
-        <div className="h-px bg-white/10 mb-8" aria-hidden="true" />
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <p className="text-white/60 text-sm">
-            &copy; {currentYear} Dairy Trends Ice Creams. All Rights Reserved.
+        {/* Divider + bottom bar */}
+        <div className="border-t border-white/8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-white/40 text-xs">
+            &copy; {currentYear} Dairy Trends Ice Creams. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="text-white/60 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">Privacy Policy</a>
-            <a href="#" className="text-white/60 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">Terms of Service</a>
+          <div className="flex items-center gap-6 text-xs">
+            <a
+              href="#"
+              className="text-white/40 hover:text-white/70 transition-colors focus-visible:outline-white focus-visible:outline-2 rounded"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="#"
+              className="text-white/40 hover:text-white/70 transition-colors focus-visible:outline-white focus-visible:outline-2 rounded"
+            >
+              Terms of Service
+            </a>
           </div>
         </div>
       </div>
