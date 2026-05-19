@@ -5,6 +5,12 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Tag } from 'lucide-react'
 import Image from 'next/image'
 import { products } from '@/lib/data'
+import Link from 'next/link'
+
+interface ProductsSectionProps {
+  limit?: number
+  showViewAll?: boolean
+}
 
 interface ProductCardProps {
   product: typeof products[0]
@@ -96,7 +102,7 @@ function ProductCard({ product, index, isInView, static: isStatic }: ProductCard
   )
 }
 
-export default function ProductsSection() {
+export default function ProductsSection({ limit = 8, showViewAll = true }: ProductsSectionProps = {}) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [activeCategory, setActiveCategory] = useState('All')
@@ -105,6 +111,8 @@ export default function ProductsSection() {
 
   const filteredProducts =
     activeCategory === 'All' ? products : products.filter(p => p.category === activeCategory)
+
+  const displayedProducts = limit ? filteredProducts.slice(0, limit) : filteredProducts
 
   return (
     <section id="products" className="relative py-24 lg:py-32 overflow-hidden bg-white">
@@ -216,7 +224,7 @@ export default function ProductsSection() {
               px-4 pb-4 pt-1
             `}
           >
-            {filteredProducts.map((product, index) => (
+            {displayedProducts.map((product, index) => (
               <div
                 key={product.name}
                 className="snap-start shrink-0 w-[72vw] max-w-[280px]"
@@ -263,7 +271,7 @@ export default function ProductsSection() {
           className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProducts.map((product, index) => (
+            {displayedProducts.map((product, index) => (
               <ProductCard
                 key={product.name}
                 product={product}
@@ -285,11 +293,28 @@ export default function ProductsSection() {
         )}
       </div>
 
-      {/* Result count */}
+      {/* Result count & View All */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.p layout className="text-center text-sm text-chocolate/40 mt-6">
-          Showing {filteredProducts.length} of {products.length} products
+          Showing {displayedProducts.length} of {filteredProducts.length} products
         </motion.p>
+        
+        {showViewAll && filteredProducts.length > (limit || 0) && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-10 flex justify-center pb-8"
+          >
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center gap-2 bg-white text-brand-red px-8 py-3.5 rounded-xl font-bold text-base border-2 border-brand-red/20 shadow-sm hover:border-brand-red hover:bg-brand-red/5 transition-all focus-visible:outline-brand-red focus-visible:outline-2"
+            >
+              View All Products
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
+        )}
       </div>
     </section>
   )

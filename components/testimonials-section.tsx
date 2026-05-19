@@ -25,13 +25,13 @@ export default function TestimonialsSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-12 lg:mb-16"
+          className="flex flex-col items-center text-center mb-12 lg:mb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.15 }}
-            className="section-badge mb-5 mx-auto w-fit"
+            className="section-badge mb-5"
           >
             Customer Love
           </motion.div>
@@ -40,10 +40,9 @@ export default function TestimonialsSection() {
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4 tracking-tight"
             style={{ fontFamily: 'var(--font-baloo)' }}
           >
-            What Our{' '}
-            <span className="text-brand-red">Customers</span> Say
+            What Our <span className="text-brand-red">Customers</span> Say
           </h2>
-          <p className="text-chocolate/60 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
+          <p className="text-chocolate/60 max-w-xl text-base sm:text-lg leading-relaxed">
             Don&apos;t just take our word for it — here&apos;s what our happy customers have to say.
           </p>
         </motion.div>
@@ -65,7 +64,7 @@ export default function TestimonialsSection() {
               640: { slidesPerView: 2, spaceBetween: 20 },
               1024: { slidesPerView: 3, spaceBetween: 24 },
             }}
-            className="pb-14"
+            className="pb-16 px-1"
           >
             {testimonials.map((testimonial, index) => (
               <SwiperSlide key={testimonial.id} className="h-auto">

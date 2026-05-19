@@ -62,14 +62,6 @@ export default function HeroSection() {
             animate="visible"
             className="text-center lg:text-left order-2 lg:order-1"
           >
-            {/* Eyebrow badge */}
-            <motion.div variants={itemVariants} className="flex justify-center lg:justify-start mb-6">
-              <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-white/60">
-                <span className="w-2 h-2 bg-brand-red rounded-full animate-pulse" aria-hidden="true" />
-                <span className="text-sm font-semibold text-chocolate tracking-wide">Premium Quality Ice Creams</span>
-              </div>
-            </motion.div>
-
             {/* Headline */}
             <motion.h1
               variants={itemVariants}

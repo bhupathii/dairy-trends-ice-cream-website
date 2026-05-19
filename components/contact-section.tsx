@@ -214,13 +214,17 @@ export default function ContactSection() {
               className="relative h-64 rounded-2xl overflow-hidden shadow-lg"
               aria-hidden="true"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-pink/30 to-golden/30 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-brand-red mx-auto mb-2" />
-                  <p className="text-chocolate font-medium">Google Map</p>
-                  <p className="text-sm text-chocolate/60">Coming Soon</p>
-                </div>
-              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.940562692025!2d78.32121567503796!3d17.109425183656364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbc700151bc1d3%3A0x50e7e9da9d02230!2sPradhara%20Dairy%20Private%20Limited!5e0!3m2!1sen!2sin!4v1716300000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
+                title="Pradhara Dairy Private Limited Location"
+              ></iframe>
             </motion.div>
           </motion.div>
         </div>
