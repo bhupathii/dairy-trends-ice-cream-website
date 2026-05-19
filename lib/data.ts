@@ -11,11 +11,13 @@ export interface Flavour {
 }
 
 export interface Product {
-  id: string
   name: string
+  flavour: string
+  category: string
+  size: string
   description: string
   image: string
-  category: string
+  badge: string
 }
 
 export interface Offer {
@@ -101,52 +103,397 @@ export const flavours: Flavour[] = [
     price: '₹69',
     image: 'https://images.unsplash.com/photo-1615478503562-ec2d8aa0e24e?w=400&h=400&fit=crop',
     color: '#F5F5DC'
+  },
+  {
+    "name": "Vanilla Family Pack",
+    "flavour": "Vanilla",
+    "category": "Family Packs",
+    "size": "Family Pack",
+    "description": "Classic creamy vanilla ice cream for the whole family.",
+    "image": "/ice-cream images/DSC08827 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Strawberry Premium Cup",
+    "flavour": "Strawberry",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Sweet strawberry ice cream in a convenient cup.",
+    "image": "/ice-cream images/DSC08870 Medium.png",
+    "badge": "Popular"
+  },
+  {
+    "name": "Mango Magic Cup",
+    "flavour": "Mango",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Alphonso mango goodness in a cup.",
+    "image": "/ice-cream images/DSC08916 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Chocolate Delight Cup",
+    "flavour": "Chocolate",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Rich chocolate ice cream cup.",
+    "image": "/ice-cream images/DSC08921 Medium.png",
+    "badge": "Bestseller"
+  },
+  {
+    "name": "Pista Premium Cup",
+    "flavour": "Pistachio",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Nutty pistachio ice cream in a cup.",
+    "image": "/ice-cream images/DSC08970 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Vanilla Classic Cone",
+    "flavour": "Vanilla",
+    "category": "Cones",
+    "size": "Regular Cone",
+    "description": "Crispy cone filled with classic vanilla ice cream.",
+    "image": "/ice-cream images/DSC09085 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Strawberry Swirl Cone",
+    "flavour": "Strawberry",
+    "category": "Cones",
+    "size": "Regular Cone",
+    "description": "Delicious strawberry ice cream in a crispy waffle cone.",
+    "image": "/ice-cream images/DSC09115 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Blackcurrant Mega Cone",
+    "flavour": "Blackcurrant",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Tangy blackcurrant ice cream in a large waffle cone.",
+    "image": "/ice-cream images/DSC09143 Medium.png",
+    "badge": "New"
+  },
+  {
+    "name": "Blackcurrant Tub",
+    "flavour": "Blackcurrant",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "A tub of refreshing blackcurrant ice cream.",
+    "image": "/ice-cream images/DSC09204 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Vanilla Classic Tub",
+    "flavour": "Vanilla",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Creamy vanilla ice cream in a family-sized tub.",
+    "image": "/ice-cream images/DSC09212 Medium.png",
+    "badge": "Classic"
+  },
+  {
+    "name": "Chocolate Delight Tub",
+    "flavour": "Chocolate",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Rich Belgian chocolate ice cream tub.",
+    "image": "/ice-cream images/DSC09248 Medium.png",
+    "badge": "Premium"
+  },
+  {
+    "name": "Mango Magic Tub",
+    "flavour": "Mango",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Tropical mango ice cream in a large tub.",
+    "image": "/ice-cream images/DSC09262 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Strawberry Swirl Tub",
+    "flavour": "Strawberry",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Sweet strawberry ice cream tub.",
+    "image": "/ice-cream images/DSC09287 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Pista Premium Tub",
+    "flavour": "Pistachio",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Pistachio ice cream tub with real nut pieces.",
+    "image": "/ice-cream images/DSC09301 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Mixed Party Pack",
+    "flavour": "Mixed",
+    "category": "Party Packs",
+    "size": "Multipack",
+    "description": "A variety pack of our most popular flavours.",
+    "image": "/ice-cream images/DSC09381 Medium.png",
+    "badge": "Party Pack"
+  },
+  {
+    "name": "Premium Party Pack",
+    "flavour": "Mixed Premium",
+    "category": "Party Packs",
+    "size": "Multipack",
+    "description": "A multipack of our premium ice cream range.",
+    "image": "/ice-cream images/DSC09384 Medium.png",
+    "badge": "Premium Pack"
   }
 ]
 
 // Product Categories - Customize product offerings here
 export const products: Product[] = [
   {
-    id: 'cups',
-    name: 'Ice Cream Cups',
-    description: 'Perfect single servings in various flavours',
-    image: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&h=400&fit=crop',
-    category: 'cups'
+    "name": "Butterscotch Family Pack",
+    "flavour": "Butterscotch",
+    "category": "Family Packs",
+    "size": "Family Pack",
+    "description": "Rich butterscotch ice cream packed with crunchy praline pieces. Perfect for sharing with the family.",
+    "image": "/ice-cream images/DSC08377 Medium.png",
+    "badge": "Buy 1 Get 1"
   },
   {
-    id: 'cones',
-    name: 'Cones',
-    description: 'Crispy waffle cones with generous scoops',
-    image: 'https://images.unsplash.com/photo-1576506295286-5cda18df43e7?w=400&h=400&fit=crop',
-    category: 'cones'
+    "name": "Butterscotch Mega Cone",
+    "flavour": "Butterscotch",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Crispy waffle cone filled with creamy butterscotch ice cream and topped with crunchy nuts.",
+    "image": "/ice-cream images/DSC08401 Medium.png",
+    "badge": "Popular"
   },
   {
-    id: 'family-packs',
-    name: 'Family Packs',
-    description: 'Large tubs perfect for family gatherings',
-    image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=400&fit=crop',
-    category: 'family'
+    "name": "Butterscotch Mega Cone (Handheld)",
+    "flavour": "Butterscotch",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Enjoy the classic taste of butterscotch in our crispy, crunchy mega cone.",
+    "image": "/ice-cream images/DSC08406 Medium.png",
+    "badge": ""
   },
   {
-    id: 'sundaes',
-    name: 'Sundaes',
-    description: 'Indulgent sundaes with toppings galore',
-    image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=400&fit=crop',
-    category: 'sundaes'
+    "name": "Butterscotch Premium Cup",
+    "flavour": "Butterscotch",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "A delightful cup of our signature butterscotch ice cream with caramel swirls.",
+    "image": "/ice-cream images/DSC08441 Medium.png",
+    "badge": ""
   },
   {
-    id: 'cakes',
-    name: 'Ice Cream Cakes',
-    description: 'Celebration cakes for special occasions',
-    image: 'https://images.unsplash.com/photo-1606890658317-7d14490b76fd?w=400&h=400&fit=crop',
-    category: 'cakes'
+    "name": "Butterscotch Caramel Cup",
+    "flavour": "Butterscotch",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Decadent butterscotch ice cream topped with rich, gooey caramel syrup.",
+    "image": "/ice-cream images/DSC08470 Medium.png",
+    "badge": "Bestseller"
   },
   {
-    id: 'milkshakes',
-    name: 'Milkshakes',
-    description: 'Thick, creamy shakes in all flavours',
-    image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&h=400&fit=crop',
-    category: 'milkshakes'
+    "name": "American Nuts Family Pack",
+    "flavour": "American Nuts",
+    "category": "Family Packs",
+    "size": "Family Pack",
+    "description": "Rich mixed nut ice cream featuring pistachios, cashews, and almonds in a creamy base.",
+    "image": "/ice-cream images/DSC08505 Medium.png",
+    "badge": "Buy 1 Get 1"
+  },
+  {
+    "name": "American Nuts Tub",
+    "flavour": "American Nuts",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "A delightful tub of our exotic American Nuts ice cream. Loaded with roasted nuts.",
+    "image": "/ice-cream images/DSC08517 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Nutty Delight Mega Cone",
+    "flavour": "Nutty Delight",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Premium waffle cone packed with creamy nutty delight ice cream and chocolate sauce.",
+    "image": "/ice-cream images/DSC08562 Medium.png",
+    "badge": "Premium"
+  },
+  {
+    "name": "Nutty Delight Mega Cone Multi-Pack",
+    "flavour": "Nutty Delight",
+    "category": "Party Packs",
+    "size": "Multipack",
+    "description": "A multipack of our popular Nutty Delight cones. Perfect for sharing with friends.",
+    "image": "/ice-cream images/DSC08591 Medium.png",
+    "badge": "Party Pack"
+  },
+  {
+    "name": "Kaju Kishmish Family Pack",
+    "flavour": "Kaju Kishmish",
+    "category": "Family Packs",
+    "size": "Family Pack",
+    "description": "Classic Indian flavour pairing roasted cashews with sweet raisins in a rich creamy base.",
+    "image": "/ice-cream images/DSC08597 Medium.png",
+    "badge": "Buy 1 Get 1"
+  },
+  {
+    "name": "Kaju Kishmish Premium Sundae",
+    "flavour": "Kaju Kishmish",
+    "category": "Premium Flavours",
+    "size": "Sundae Bowl",
+    "description": "Rich cashews and sweet raisins ice cream served in a crispy, sweet waffle bowl.",
+    "image": "/ice-cream images/DSC08675 Medium.png",
+    "badge": "Premium"
+  },
+  {
+    "name": "Real Mango Family Pack",
+    "flavour": "Mango",
+    "category": "Family Packs",
+    "size": "Family Pack",
+    "description": "Made with real mango pulp, bringing you the authentic taste of summer in every scoop.",
+    "image": "/ice-cream images/DSC08696 Medium.png",
+    "badge": "Buy 1 Get 1"
+  },
+  {
+    "name": "Real Mango Bars",
+    "flavour": "Mango",
+    "category": "Bars",
+    "size": "Multipack Bars",
+    "description": "Refreshing and fruity real mango ice pops. A perfect treat for a hot summer day.",
+    "image": "/ice-cream images/DSC08720 Medium.png",
+    "badge": "Real Fruit"
+  },
+  {
+    "name": "Rajbhog Family Pack",
+    "flavour": "Rajbhog",
+    "category": "Premium Flavours",
+    "size": "Family Pack",
+    "description": "A royal Indian treat infused with saffron, cardamom, and an abundance of rich nuts.",
+    "image": "/ice-cream images/DSC08771 Medium.png",
+    "badge": "Buy 1 Get 1"
+  },
+  {
+    "name": "Rajbhog Premium Cup",
+    "flavour": "Rajbhog",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Experience the royal taste of saffron and nuts in a convenient individual cup.",
+    "image": "/ice-cream images/DSC08795 Medium.png",
+    "badge": "Bestseller"
+  },
+  {
+    "name": "Red Velvet Mega Cone",
+    "flavour": "Red Velvet",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Luxurious red velvet ice cream wrapped in a crispy cone, topped with cake crumbs.",
+    "image": "/ice-cream images/DSC08822 Medium.png",
+    "badge": "Premium"
+  },
+  {
+    "name": "Red Velvet Mega Cone Multi-Pack",
+    "flavour": "Red Velvet",
+    "category": "Party Packs",
+    "size": "Multipack",
+    "description": "Share the love with this party pack of our decadent Red Velvet mega cones.",
+    "image": "/ice-cream images/DSC08836 Medium.png",
+    "badge": "Party Pack"
+  },
+  {
+    "name": "Trend Cookies Mega Cone",
+    "flavour": "Cookies & Cream",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "The classic cookies and cream flavour elevated in our signature crispy mega cone.",
+    "image": "/ice-cream images/DSC08860 Medium.png",
+    "badge": "New"
+  },
+  {
+    "name": "Chilly Guava Bars",
+    "flavour": "Guava",
+    "category": "Bars",
+    "size": "Multipack Bars",
+    "description": "Sweet guava ice pops with a spicy chilli kick. A true Indian street food classic frozen on a stick.",
+    "image": "/ice-cream images/DSC08895 Medium.png",
+    "badge": "Spicy & Sweet"
+  },
+  {
+    "name": "Chocolate Mega Cone",
+    "flavour": "Chocolate",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Rich, creamy chocolate ice cream in a crunchy waffle cone, topped with chocolate chips.",
+    "image": "/ice-cream images/DSC08959 Medium.png",
+    "badge": "Classic"
+  },
+  {
+    "name": "Belgium Dark Chocolate Mega Cone",
+    "flavour": "Dark Chocolate",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Intense Belgium dark chocolate ice cream inside a dark chocolate cone.",
+    "image": "/ice-cream images/DSC09000 Medium.png",
+    "badge": "Premium"
+  },
+  {
+    "name": "Double Chocolate Bar",
+    "flavour": "Double Chocolate",
+    "category": "Bars",
+    "size": "Single Bar",
+    "description": "Rich chocolate ice cream coated in a thick, crunchy layer of milk chocolate and crispies.",
+    "image": "/ice-cream images/DSC09037 Medium.png",
+    "badge": "Bestseller"
+  },
+  {
+    "name": "Nutty Delight Bar",
+    "flavour": "Nutty Delight",
+    "category": "Bars",
+    "size": "Single Bar",
+    "description": "Creamy ice cream dipped in chocolate and generously covered in roasted nuts.",
+    "image": "/ice-cream images/DSC09062 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Fruit Ninja Sundae Cup",
+    "flavour": "Mixed Fruit",
+    "category": "Sundaes",
+    "size": "Sundae Cup",
+    "description": "A vibrant mix of fruit flavours swirled together in a fun and fruity sundae cup.",
+    "image": "/ice-cream images/DSC09106 Medium.png",
+    "badge": "Kids Favourite"
+  },
+  {
+    "name": "Black Forest Ice Cream Pastry",
+    "flavour": "Black Forest",
+    "category": "Premium Flavours",
+    "size": "Pastry Pack",
+    "description": "Indulgent layers of chocolate cake, cherry preserve, and vanilla ice cream in a pastry form.",
+    "image": "/ice-cream images/DSC09134 Medium.png",
+    "badge": "New"
+  },
+  {
+    "name": "Pista Mega Cone Multi-Pack",
+    "flavour": "Pistachio",
+    "category": "Party Packs",
+    "size": "Multipack",
+    "description": "Rich pistachio ice cream with real nut pieces inside our classic crispy waffle cone.",
+    "image": "/ice-cream images/DSC09165 Medium.png",
+    "badge": "Party Pack"
+  },
+  {
+    "name": "Shahi Pista Kulfi",
+    "flavour": "Pistachio Kulfi",
+    "category": "Kulfi Range",
+    "size": "Stick",
+    "description": "Traditional rich and dense royal pistachio kulfi on a stick, infused with saffron.",
+    "image": "/ice-cream images/DSC09174 Medium.png",
+    "badge": "Authentic"
   }
 ]
 

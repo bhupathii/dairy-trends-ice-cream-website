@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { products } from '@/lib/data'
@@ -44,9 +44,11 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      layout
+      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+      transition={{ delay: index * 0.05, duration: 0.4 }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
@@ -55,14 +57,14 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
         rotateY: rotateY,
         transformStyle: 'preserve-3d',
       }}
-      className="relative group focus-within:ring-4 focus-within:ring-brand-red/50 rounded-3xl"
+      className="relative group focus-within:ring-4 focus-within:ring-brand-red/50 rounded-3xl h-full"
     >
       <div 
-        className="glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+        className="glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
         style={{ transform: 'translateZ(50px)' }}
       >
         {/* Image */}
-        <div className="relative h-48 overflow-hidden bg-white/50">
+        <div className="relative h-56 overflow-hidden bg-white/50 shrink-0">
           <Image
             src={product.image}
             alt={product.name}
@@ -71,22 +73,35 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
           <div className={`absolute inset-0 bg-gradient-to-t from-brand-red/60 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} aria-hidden="true" />
+          
+          {product.badge && (
+            <div className="absolute top-4 right-4 bg-golden text-chocolate text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
+              {product.badge}
+            </div>
+          )}
         </div>
 
         {/* Content */}
-        <div className="p-5" style={{ transform: 'translateZ(30px)' }}>
-          <h3 className="font-bold text-chocolate text-xl mb-2">{product.name}</h3>
-          <p className="text-chocolate/60 text-sm mb-4">{product.description}</p>
+        <div className="p-5 flex flex-col flex-grow bg-white/40" style={{ transform: 'translateZ(30px)' }}>
+          <div className="flex justify-between items-start mb-2 gap-2">
+            <h3 className="font-bold text-chocolate text-xl leading-tight">{product.name}</h3>
+          </div>
+          <p className="text-chocolate/60 text-sm mb-4 flex-grow">{product.description}</p>
           
-          <motion.button
-            type="button"
-            whileHover={{ x: 5 }}
-            className="flex items-center gap-2 text-brand-red font-semibold group focus-visible:outline-brand-red focus-visible:outline-2 rounded"
-            aria-label={`Explore ${product.name}`}
-          >
-            <span>Explore</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-          </motion.button>
+          <div className="flex items-center justify-between mt-auto">
+            <span className="text-sm font-medium text-chocolate/80 bg-white/50 px-3 py-1 rounded-full">
+              {product.size}
+            </span>
+            <motion.button
+              type="button"
+              whileHover={{ x: 5 }}
+              className="flex items-center gap-2 text-brand-red font-semibold group focus-visible:outline-brand-red focus-visible:outline-2 rounded"
+              aria-label={`Explore ${product.name}`}
+            >
+              <span>Explore</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </motion.button>
+          </div>
         </div>
 
         {/* Shine Effect */}
@@ -107,6 +122,14 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
 export default function ProductsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const [activeCategory, setActiveCategory] = useState('All')
+
+  // Derive unique categories from products
+  const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))].sort()
+
+  const filteredProducts = activeCategory === 'All' 
+    ? products 
+    : products.filter(p => p.category === activeCategory)
 
   return (
     <section id="products" className="relative py-20 lg:py-28 overflow-hidden bg-background">
@@ -120,7 +143,7 @@ export default function ProductsSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 lg:mb-16"
+          className="text-center mb-8 lg:mb-12"
         >
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
@@ -142,21 +165,48 @@ export default function ProductsSection() {
           </p>
         </motion.div>
 
-        {/* Products Grid */}
-        <div 
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-          style={{ perspective: '1000px' }}
-        >
-          {products.map((product, index) => (
-            <TiltCard 
-              key={product.id} 
-              product={product} 
-              index={index} 
-              isInView={isInView} 
-            />
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 focus-visible:outline-brand-red ${
+                activeCategory === category
+                  ? 'bg-brand-red text-white shadow-md'
+                  : 'bg-white/50 text-chocolate hover:bg-white/80'
+              }`}
+            >
+              {category}
+            </button>
           ))}
         </div>
+
+        {/* Products Grid */}
+        <motion.div 
+          layout
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8"
+          style={{ perspective: '1000px' }}
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProducts.map((product, index) => (
+              <TiltCard 
+                key={product.name} 
+                product={product} 
+                index={index} 
+                isInView={isInView} 
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+        
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-12 text-chocolate/60">
+            No products found in this category.
+          </div>
+        )}
       </div>
     </section>
   )
 }
+
