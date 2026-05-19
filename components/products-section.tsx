@@ -185,7 +185,7 @@ export default function ProductsSection() {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.95 }}
                 className={`
-                  snap-start shrink-0
+                  snap-start shrink-0 flex items-center gap-2
                   px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
                   transition-all duration-250 focus-visible:outline-brand-red focus-visible:outline-2
                   ${
@@ -196,6 +196,9 @@ export default function ProductsSection() {
                 `}
                 aria-pressed={activeCategory === category}
               >
+                {activeCategory === category && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" aria-hidden="true" />
+                )}
                 {category}
               </motion.button>
             ))}

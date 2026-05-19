@@ -16,10 +16,10 @@ const colVariants = {
 }
 
 const SOCIAL_LINKS = [
-  { icon: Facebook, href: '#', label: 'Facebook', color: 'hover:bg-[#1877F2]' },
-  { icon: Instagram, href: '#', label: 'Instagram', color: 'hover:bg-[#E1306C]' },
-  { icon: Twitter, href: '#', label: 'Twitter / X', color: 'hover:bg-[#1DA1F2]' },
-  { icon: Youtube, href: '#', label: 'YouTube', color: 'hover:bg-[#FF0000]' },
+  { icon: Facebook, href: '#', label: 'Facebook', color: 'hover:bg-brand-red' },
+  { icon: Instagram, href: '#', label: 'Instagram', color: 'hover:bg-brand-red' },
+  { icon: Twitter, href: '#', label: 'Twitter / X', color: 'hover:bg-brand-red' },
+  { icon: Youtube, href: '#', label: 'YouTube', color: 'hover:bg-brand-red' },
 ]
 
 const PRODUCTS = ['Ice Cream Cups', 'Waffle Cones', 'Family Packs', 'Sundaes', 'Kulfi Range', 'Tubs']
