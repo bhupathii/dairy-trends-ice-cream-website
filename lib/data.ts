@@ -103,150 +103,6 @@ export const flavours: Flavour[] = [
     price: '₹69',
     image: 'https://images.unsplash.com/photo-1615478503562-ec2d8aa0e24e?w=400&h=400&fit=crop',
     color: '#F5F5DC'
-  },
-  {
-    "name": "Vanilla Family Pack",
-    "flavour": "Vanilla",
-    "category": "Family Packs",
-    "size": "Family Pack",
-    "description": "Classic creamy vanilla ice cream for the whole family.",
-    "image": "/ice-cream images/DSC08827 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Strawberry Premium Cup",
-    "flavour": "Strawberry",
-    "category": "Cups",
-    "size": "Regular Cup",
-    "description": "Sweet strawberry ice cream in a convenient cup.",
-    "image": "/ice-cream images/DSC08870 Medium.png",
-    "badge": "Popular"
-  },
-  {
-    "name": "Mango Magic Cup",
-    "flavour": "Mango",
-    "category": "Cups",
-    "size": "Regular Cup",
-    "description": "Alphonso mango goodness in a cup.",
-    "image": "/ice-cream images/DSC08916 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Chocolate Delight Cup",
-    "flavour": "Chocolate",
-    "category": "Cups",
-    "size": "Regular Cup",
-    "description": "Rich chocolate ice cream cup.",
-    "image": "/ice-cream images/DSC08921 Medium.png",
-    "badge": "Bestseller"
-  },
-  {
-    "name": "Pista Premium Cup",
-    "flavour": "Pistachio",
-    "category": "Cups",
-    "size": "Regular Cup",
-    "description": "Nutty pistachio ice cream in a cup.",
-    "image": "/ice-cream images/DSC08970 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Vanilla Classic Cone",
-    "flavour": "Vanilla",
-    "category": "Cones",
-    "size": "Regular Cone",
-    "description": "Crispy cone filled with classic vanilla ice cream.",
-    "image": "/ice-cream images/DSC09085 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Strawberry Swirl Cone",
-    "flavour": "Strawberry",
-    "category": "Cones",
-    "size": "Regular Cone",
-    "description": "Delicious strawberry ice cream in a crispy waffle cone.",
-    "image": "/ice-cream images/DSC09115 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Blackcurrant Mega Cone",
-    "flavour": "Blackcurrant",
-    "category": "Cones",
-    "size": "Mega Cone",
-    "description": "Tangy blackcurrant ice cream in a large waffle cone.",
-    "image": "/ice-cream images/DSC09143 Medium.png",
-    "badge": "New"
-  },
-  {
-    "name": "Blackcurrant Tub",
-    "flavour": "Blackcurrant",
-    "category": "Tubs",
-    "size": "Tub",
-    "description": "A tub of refreshing blackcurrant ice cream.",
-    "image": "/ice-cream images/DSC09204 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Vanilla Classic Tub",
-    "flavour": "Vanilla",
-    "category": "Tubs",
-    "size": "Tub",
-    "description": "Creamy vanilla ice cream in a family-sized tub.",
-    "image": "/ice-cream images/DSC09212 Medium.png",
-    "badge": "Classic"
-  },
-  {
-    "name": "Chocolate Delight Tub",
-    "flavour": "Chocolate",
-    "category": "Tubs",
-    "size": "Tub",
-    "description": "Rich Belgian chocolate ice cream tub.",
-    "image": "/ice-cream images/DSC09248 Medium.png",
-    "badge": "Premium"
-  },
-  {
-    "name": "Mango Magic Tub",
-    "flavour": "Mango",
-    "category": "Tubs",
-    "size": "Tub",
-    "description": "Tropical mango ice cream in a large tub.",
-    "image": "/ice-cream images/DSC09262 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Strawberry Swirl Tub",
-    "flavour": "Strawberry",
-    "category": "Tubs",
-    "size": "Tub",
-    "description": "Sweet strawberry ice cream tub.",
-    "image": "/ice-cream images/DSC09287 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Pista Premium Tub",
-    "flavour": "Pistachio",
-    "category": "Tubs",
-    "size": "Tub",
-    "description": "Pistachio ice cream tub with real nut pieces.",
-    "image": "/ice-cream images/DSC09301 Medium.png",
-    "badge": ""
-  },
-  {
-    "name": "Mixed Party Pack",
-    "flavour": "Mixed",
-    "category": "Party Packs",
-    "size": "Multipack",
-    "description": "A variety pack of our most popular flavours.",
-    "image": "/ice-cream images/DSC09381 Medium.png",
-    "badge": "Party Pack"
-  },
-  {
-    "name": "Premium Party Pack",
-    "flavour": "Mixed Premium",
-    "category": "Party Packs",
-    "size": "Multipack",
-    "description": "A multipack of our premium ice cream range.",
-    "image": "/ice-cream images/DSC09384 Medium.png",
-    "badge": "Premium Pack"
   }
 ]
 
@@ -494,6 +350,150 @@ export const products: Product[] = [
     "description": "Traditional rich and dense royal pistachio kulfi on a stick, infused with saffron.",
     "image": "/ice-cream images/DSC09174 Medium.png",
     "badge": "Authentic"
+  },
+  {
+    "name": "Vanilla Family Pack",
+    "flavour": "Vanilla",
+    "category": "Family Packs",
+    "size": "Family Pack",
+    "description": "Classic creamy vanilla ice cream for the whole family.",
+    "image": "/ice-cream images/DSC08827 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Strawberry Premium Cup",
+    "flavour": "Strawberry",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Sweet strawberry ice cream in a convenient cup.",
+    "image": "/ice-cream images/DSC08870 Medium.png",
+    "badge": "Popular"
+  },
+  {
+    "name": "Mango Magic Cup",
+    "flavour": "Mango",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Alphonso mango goodness in a cup.",
+    "image": "/ice-cream images/DSC08916 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Chocolate Delight Cup",
+    "flavour": "Chocolate",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Rich chocolate ice cream cup.",
+    "image": "/ice-cream images/DSC08921 Medium.png",
+    "badge": "Bestseller"
+  },
+  {
+    "name": "Pista Premium Cup",
+    "flavour": "Pistachio",
+    "category": "Cups",
+    "size": "Regular Cup",
+    "description": "Nutty pistachio ice cream in a cup.",
+    "image": "/ice-cream images/DSC08970 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Vanilla Classic Cone",
+    "flavour": "Vanilla",
+    "category": "Cones",
+    "size": "Regular Cone",
+    "description": "Crispy cone filled with classic vanilla ice cream.",
+    "image": "/ice-cream images/DSC09085 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Strawberry Swirl Cone",
+    "flavour": "Strawberry",
+    "category": "Cones",
+    "size": "Regular Cone",
+    "description": "Delicious strawberry ice cream in a crispy waffle cone.",
+    "image": "/ice-cream images/DSC09115 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Blackcurrant Mega Cone",
+    "flavour": "Blackcurrant",
+    "category": "Cones",
+    "size": "Mega Cone",
+    "description": "Tangy blackcurrant ice cream in a large waffle cone.",
+    "image": "/ice-cream images/DSC09143 Medium.png",
+    "badge": "New"
+  },
+  {
+    "name": "Blackcurrant Tub",
+    "flavour": "Blackcurrant",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "A tub of refreshing blackcurrant ice cream.",
+    "image": "/ice-cream images/DSC09204 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Vanilla Classic Tub",
+    "flavour": "Vanilla",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Creamy vanilla ice cream in a family-sized tub.",
+    "image": "/ice-cream images/DSC09212 Medium.png",
+    "badge": "Classic"
+  },
+  {
+    "name": "Chocolate Delight Tub",
+    "flavour": "Chocolate",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Rich Belgian chocolate ice cream tub.",
+    "image": "/ice-cream images/DSC09248 Medium.png",
+    "badge": "Premium"
+  },
+  {
+    "name": "Mango Magic Tub",
+    "flavour": "Mango",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Tropical mango ice cream in a large tub.",
+    "image": "/ice-cream images/DSC09262 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Strawberry Swirl Tub",
+    "flavour": "Strawberry",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Sweet strawberry ice cream tub.",
+    "image": "/ice-cream images/DSC09287 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Pista Premium Tub",
+    "flavour": "Pistachio",
+    "category": "Tubs",
+    "size": "Tub",
+    "description": "Pistachio ice cream tub with real nut pieces.",
+    "image": "/ice-cream images/DSC09301 Medium.png",
+    "badge": ""
+  },
+  {
+    "name": "Mixed Party Pack",
+    "flavour": "Mixed",
+    "category": "Party Packs",
+    "size": "Multipack",
+    "description": "A variety pack of our most popular flavours.",
+    "image": "/ice-cream images/DSC09381 Medium.png",
+    "badge": "Party Pack"
+  },
+  {
+    "name": "Premium Party Pack",
+    "flavour": "Mixed Premium",
+    "category": "Party Packs",
+    "size": "Multipack",
+    "description": "A multipack of our premium ice cream range.",
+    "image": "/ice-cream images/DSC09384 Medium.png",
+    "badge": "Premium Pack"
   }
 ]
 
