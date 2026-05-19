@@ -27,11 +27,11 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="relative py-20 lg:py-28 overflow-hidden bg-cream">
+    <section id="contact" className="relative py-20 lg:py-28 overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-cream" />
-      <div className="absolute bottom-20 left-10 w-64 h-64 bg-pink/20 rounded-full blur-3xl" />
-      <div className="absolute top-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-background pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-20 left-10 w-64 h-64 bg-pink/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
@@ -71,61 +71,69 @@ export default function ContactSection() {
             <div className="glass p-6 lg:p-8 rounded-3xl shadow-xl">
               <h3 className="text-2xl font-bold text-chocolate mb-6">Send us a Message</h3>
               
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                 <div>
-                  <label className="block text-sm font-medium text-chocolate mb-2">
-                    Your Name
+                  <label htmlFor="name" className="block text-sm font-medium text-chocolate mb-2">
+                    Your Name <span className="text-brand-red" aria-hidden="true">*</span>
                   </label>
                   <input
+                    id="name"
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
+                    aria-required="true"
                     placeholder="Enter your name"
-                    className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors"
                   />
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-chocolate mb-2">
-                      Phone Number
+                    <label htmlFor="phone" className="block text-sm font-medium text-chocolate mb-2">
+                      Phone Number <span className="text-brand-red" aria-hidden="true">*</span>
                     </label>
                     <input
+                      id="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       required
+                      aria-required="true"
                       placeholder="+91 98765 43210"
-                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-chocolate mb-2">
-                      Email Address
+                    <label htmlFor="email" className="block text-sm font-medium text-chocolate mb-2">
+                      Email Address <span className="text-brand-red" aria-hidden="true">*</span>
                     </label>
                     <input
+                      id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
+                      aria-required="true"
                       placeholder="your@email.com"
-                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-chocolate mb-2">
-                    Your Message
+                  <label htmlFor="message" className="block text-sm font-medium text-chocolate mb-2">
+                    Your Message <span className="text-brand-red" aria-hidden="true">*</span>
                   </label>
                   <textarea
+                    id="message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
+                    aria-required="true"
                     rows={4}
                     placeholder="Tell us about your requirements..."
-                    className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors resize-none"
                   />
                 </div>
 
@@ -134,16 +142,17 @@ export default function ContactSection() {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-brand-red text-white py-4 rounded-xl font-semibold btn-glow flex items-center justify-center gap-2 disabled:opacity-70"
+                  className="w-full bg-brand-red text-white py-4 rounded-xl font-semibold btn-glow flex items-center justify-center gap-2 disabled:opacity-70 focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target"
+                  aria-busy={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
                       Sending...
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5" />
+                      <Send className="w-5 h-5" aria-hidden="true" />
                       Send Message
                     </>
                   )}
@@ -165,7 +174,7 @@ export default function ContactSection() {
                 { icon: Phone, label: 'Call Us', value: contactInfo.phone, href: `tel:${contactInfo.phone.replace(/\s/g, '')}` },
                 { icon: MessageCircle, label: 'WhatsApp', value: contactInfo.whatsapp, href: `https://wa.me/${contactInfo.whatsapp.replace(/[^0-9]/g, '')}` },
                 { icon: Mail, label: 'Email Us', value: contactInfo.email, href: `mailto:${contactInfo.email}` },
-                { icon: MapPin, label: 'Visit Us', value: 'See on Map', href: '#' }
+                { icon: MapPin, label: 'Visit Us', value: 'See on Map', href: '#contact' }
               ].map((item, index) => (
                 <motion.a
                   key={item.label}
@@ -174,10 +183,11 @@ export default function ContactSection() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.3 + index * 0.1 }}
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="glass p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all group"
+                  className="glass p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all group focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target block"
+                  aria-label={`${item.label}: ${item.value}`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" aria-hidden="true">
                       <item.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -206,6 +216,7 @@ export default function ContactSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6 }}
               className="relative h-64 rounded-2xl overflow-hidden shadow-lg"
+              aria-hidden="true"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-pink/30 to-golden/30 flex items-center justify-center">
                 <div className="text-center">

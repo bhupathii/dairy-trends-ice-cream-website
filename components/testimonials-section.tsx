@@ -16,11 +16,11 @@ export default function TestimonialsSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative py-20 lg:py-28 overflow-hidden">
+    <section className="relative py-20 lg:py-28 overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute inset-0 gradient-warm" />
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl -translate-y-1/2" />
-      <div className="absolute top-1/2 right-0 w-80 h-80 bg-golden/10 rounded-full blur-3xl -translate-y-1/2" />
+      <div className="absolute inset-0 gradient-warm pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/2 right-0 w-80 h-80 bg-golden/10 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
@@ -75,33 +75,34 @@ export default function TestimonialsSection() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="glass p-6 lg:p-8 rounded-3xl shadow-lg h-full"
+                  className="glass p-6 lg:p-8 rounded-3xl shadow-lg h-full flex flex-col"
                 >
                   {/* Quote Icon */}
-                  <div className="mb-4">
+                  <div className="mb-4" aria-hidden="true">
                     <Quote className="w-10 h-10 text-brand-red/20" />
                   </div>
 
                   {/* Rating */}
-                  <div className="flex gap-1 mb-4">
+                  <div className="flex gap-1 mb-4" aria-label={`Rating: ${testimonial.rating} out of 5 stars`}>
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-golden text-golden" />
+                      <Star key={i} className="w-5 h-5 fill-golden text-golden" aria-hidden="true" />
                     ))}
                   </div>
 
                   {/* Quote */}
-                  <p className="text-chocolate/80 mb-6 leading-relaxed italic">
+                  <p className="text-chocolate/80 mb-6 leading-relaxed italic grow">
                     &quot;{testimonial.quote}&quot;
                   </p>
 
                   {/* Author */}
-                  <div className="flex items-center gap-4">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-brand-red/20">
+                  <div className="flex items-center gap-4 mt-auto">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-brand-red/20 shrink-0">
                       <Image
                         src={testimonial.avatar}
-                        alt={testimonial.name}
+                        alt={`Avatar of ${testimonial.name}`}
                         fill
                         className="object-cover"
+                        sizes="48px"
                       />
                     </div>
                     <div>

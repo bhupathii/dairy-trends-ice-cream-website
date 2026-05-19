@@ -33,12 +33,13 @@
   --border: #F5DED5;
   --input: #F5DED5;
   --ring: #D71920;
-  --radius: 0.75rem;
+  --radius: 1rem; /* Updated to larger radius for premium feel */
 }
 
 @theme inline {
   --font-sans: var(--font-poppins), 'Poppins', sans-serif;
   --font-display: var(--font-fredoka), 'Fredoka', sans-serif;
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -58,10 +59,13 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
   
   /* Brand color utilities */
   --color-brand-red: var(--brand-red);
@@ -77,42 +81,70 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans selection:bg-brand-red/20 selection:text-brand-red-dark;
   }
   
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
   }
+
+  /* Accessibility: Visible focus outline */
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 3px solid var(--brand-red);
+    outline-offset: 2px;
+    border-radius: 4px; /* Ensure a small curve on focus rings if applicable */
+  }
+
+  /* Motion accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
   /* Glassmorphism effect */
   .glass {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(74, 44, 42, 0.05);
   }
   
   /* Button glow effect */
   .btn-glow {
-    box-shadow: 0 0 20px rgba(215, 25, 32, 0.4);
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 15px rgba(215, 25, 32, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .btn-glow:hover {
-    box-shadow: 0 0 30px rgba(215, 25, 32, 0.6), 0 0 60px rgba(215, 25, 32, 0.3);
+    box-shadow: 0 0 25px rgba(215, 25, 32, 0.5), 0 0 40px rgba(215, 25, 32, 0.2);
+    transform: translateY(-2px);
   }
   
   /* 3D card tilt base */
   .card-3d {
     transform-style: preserve-3d;
-    perspective: 1000px;
+    perspective: 1200px;
+  }
+  
+  .card-3d-inner {
+    transition: transform 0.3s ease;
   }
   
   /* Gradient backgrounds */
   .gradient-hero {
-    background: linear-gradient(135deg, #FFF8EF 0%, #FFE3EC 50%, #FFF8EF 100%);
+    background: linear-gradient(135deg, #FFF8EF 0%, #FFE3EC 100%);
   }
   
   .gradient-red-yellow {
@@ -125,16 +157,16 @@
   
   /* Floating animation */
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
   }
   
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 7s ease-in-out infinite;
   }
   
   .animate-float-delayed {
-    animation: float 6s ease-in-out 2s infinite;
+    animation: float 7s ease-in-out 3.5s infinite;
   }
   
   /* Blob animation */
@@ -144,11 +176,33 @@
   }
   
   .animate-blob {
-    animation: blob 8s ease-in-out infinite;
+    animation: blob 10s ease-in-out infinite;
   }
   
   /* Text shadow for hero */
   .text-shadow {
-    text-shadow: 2px 2px 4px rgba(74, 44, 42, 0.2);
+    text-shadow: 2px 2px 8px rgba(74, 44, 42, 0.15);
+  }
+
+  /* Target Sizes for Accessibility */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Visually Hidden for Screen Readers */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }

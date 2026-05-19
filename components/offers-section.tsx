@@ -13,18 +13,19 @@ export default function OffersSection() {
   return (
     <section id="offers" className="relative py-20 lg:py-28 overflow-hidden">
       {/* Gradient Background */}
-      <div className="absolute inset-0 gradient-red-yellow opacity-90" />
+      <div className="absolute inset-0 gradient-red-yellow opacity-90 pointer-events-none" aria-hidden="true" />
       
       {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
-      <div className="absolute bottom-10 right-10 w-48 h-48 bg-white/10 rounded-full blur-2xl" />
-      <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-golden/20 rounded-full blur-3xl" />
+      <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-10 right-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-golden/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       {/* Floating Ice Cream Decorations */}
       <motion.div
         animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
         transition={{ duration: 5, repeat: Infinity }}
-        className="absolute top-20 right-[15%] w-20 h-20 opacity-20 hidden lg:block"
+        className="absolute top-20 right-[15%] w-20 h-20 opacity-20 hidden lg:block pointer-events-none"
+        aria-hidden="true"
       >
         <svg viewBox="0 0 100 140" fill="white">
           <ellipse cx="50" cy="35" rx="35" ry="35" />
@@ -46,7 +47,7 @@ export default function OffersSection() {
             transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-4"
           >
-            <Flame className="w-4 h-4" />
+            <Flame className="w-4 h-4" aria-hidden="true" />
             Limited Time Offers
           </motion.span>
           <h2 
@@ -72,7 +73,7 @@ export default function OffersSection() {
               whileHover={{ y: -10, scale: 1.03 }}
               className="group relative"
             >
-              <div className="bg-white/95 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl h-full">
+              <div className="bg-white/95 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl h-full flex flex-col">
                 {/* Badge */}
                 <motion.div
                   initial={{ scale: 0 }}
@@ -81,20 +82,21 @@ export default function OffersSection() {
                   className="absolute top-4 right-4 z-10"
                 >
                   <div className="bg-brand-red text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
-                    <Flame className="w-3 h-3" />
+                    <Flame className="w-3 h-3" aria-hidden="true" />
                     {offer.badge}
                   </div>
                 </motion.div>
 
                 {/* Image */}
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-40 overflow-hidden shrink-0">
                   <Image
                     src={offer.image}
                     alt={offer.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-red/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-red/40 to-transparent" aria-hidden="true" />
                   
                   {/* Discount Badge */}
                   <div className="absolute bottom-3 left-3">
@@ -105,17 +107,18 @@ export default function OffersSection() {
                 </div>
 
                 {/* Content */}
-                <div className="p-5">
+                <div className="p-5 flex flex-col grow">
                   <h3 className="font-bold text-chocolate text-lg mb-2">{offer.title}</h3>
                   <p className="text-chocolate/60 text-sm mb-4 line-clamp-2">{offer.description}</p>
                   
                   <motion.button
+                    type="button"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-brand-red text-white py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-shadow"
+                    className="w-full mt-auto bg-brand-red text-white py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-shadow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target"
                   >
                     Grab Offer
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </motion.button>
                 </div>
               </div>

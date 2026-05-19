@@ -37,11 +37,11 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="about" className="relative py-20 lg:py-28 overflow-hidden">
+    <section id="about" className="relative py-20 lg:py-28 overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute inset-0 gradient-warm" />
-      <div className="absolute top-20 left-10 w-64 h-64 bg-brand-red/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl" />
+      <div className="absolute inset-0 gradient-warm pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-20 left-10 w-64 h-64 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -60,11 +60,12 @@ export default function AboutSection() {
               >
                 <Image
                   src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&h=700&fit=crop"
-                  alt="Dairy Trends Ice Cream"
+                  alt="A delicious Dairy Trends ice cream being served"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-red/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-red/30 to-transparent pointer-events-none" aria-hidden="true" />
               </motion.div>
 
               {/* Floating Badge */}
@@ -72,13 +73,18 @@ export default function AboutSection() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ delay: 0.5 }}
-                animate-class={{ y: [-10, 10, -10] }}
-                className="absolute -bottom-6 -right-6 lg:-right-10 glass p-6 rounded-2xl shadow-xl"
+                className="absolute -bottom-6 -right-6 lg:-right-10"
               >
-                <div className="text-center">
-                  <span className="text-4xl font-bold text-brand-red">10+</span>
-                  <p className="text-sm text-chocolate/70 font-medium">Years of Trust</p>
-                </div>
+                <motion.div 
+                  animate={{ y: [-5, 5, -5] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="glass p-6 rounded-2xl shadow-xl"
+                >
+                  <div className="text-center">
+                    <span className="text-4xl font-bold text-brand-red">10+</span>
+                    <p className="text-sm text-chocolate/70 font-medium">Years of Trust</p>
+                  </div>
+                </motion.div>
               </motion.div>
 
               {/* Small Floating Image */}
@@ -86,14 +92,21 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.6 }}
-                className="absolute -top-6 -left-6 lg:-left-10 w-28 h-28 lg:w-36 lg:h-36 rounded-2xl overflow-hidden shadow-xl border-4 border-white"
+                className="absolute -top-6 -left-6 lg:-left-10"
               >
-                <Image
-                  src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=200&h=200&fit=crop"
-                  alt="Ice Cream Cone"
-                  fill
-                  className="object-cover"
-                />
+                 <motion.div
+                  animate={{ y: [5, -5, 5] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                  className="w-28 h-28 lg:w-36 lg:h-36 rounded-2xl overflow-hidden shadow-xl border-4 border-white relative"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=200&h=200&fit=crop"
+                    alt="Close up of an ice cream cone"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 112px, 144px"
+                  />
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>
@@ -144,7 +157,7 @@ export default function AboutSection() {
                   whileHover={{ y: -5, scale: 1.02 }}
                   className="glass p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all"
                 >
-                  <div className={`${feature.color} w-10 h-10 rounded-xl flex items-center justify-center mb-3`}>
+                  <div className={`${feature.color} w-10 h-10 rounded-xl flex items-center justify-center mb-3`} aria-hidden="true">
                     <feature.icon className="w-5 h-5 text-white" />
                   </div>
                   <h3 className="font-bold text-chocolate mb-1">{feature.title}</h3>

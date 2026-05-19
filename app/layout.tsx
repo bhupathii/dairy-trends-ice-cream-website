@@ -27,9 +27,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${fredoka.variable} bg-cream`} suppressHydrationWarning>
-      <body className="font-sans antialiased overflow-x-hidden">
-        {children}
+    <html lang="en" className={`${poppins.variable} ${fredoka.variable}`} suppressHydrationWarning>
+      <body className="font-sans antialiased overflow-x-hidden bg-background text-foreground min-h-screen">
+        {/* Skip to main content link for keyboard accessibility */}
+        <a href="#main-content" className="visually-hidden focus-visible:not-sr-only focus-visible:absolute focus-visible:top-4 focus-visible:left-4 focus-visible:z-[100] focus-visible:bg-brand-red focus-visible:text-white focus-visible:p-3 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/40 shadow-lg font-medium">
+          Skip to main content
+        </a>
+        <div id="main-content">
+          {children}
+        </div>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

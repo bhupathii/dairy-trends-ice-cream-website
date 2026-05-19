@@ -32,3 +32,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+# Agent files
+.agents/
+skills-lock.json
+
+# Local env files
+.env
+

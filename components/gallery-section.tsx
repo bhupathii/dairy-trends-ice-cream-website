@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, KeyboardEvent } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import Image from 'next/image'
@@ -11,11 +11,18 @@ export default function GallerySection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null)
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, image: typeof galleryImages[0]) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      setSelectedImage(image)
+    }
+  }
+
   return (
-    <section id="gallery" className="relative py-20 lg:py-28 overflow-hidden bg-cream">
+    <section id="gallery" className="relative py-20 lg:py-28 overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-pink/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-golden/10 rounded-full blur-3xl" />
+      <div className="absolute top-20 left-20 w-64 h-64 bg-pink/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-20 right-20 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
@@ -53,32 +60,41 @@ export default function GallerySection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ scale: 1.02 }}
-              onClick={() => setSelectedImage(image)}
-              className="relative break-inside-avoid cursor-pointer group"
+              className="relative break-inside-avoid group"
             >
-              <div className="relative overflow-hidden rounded-2xl shadow-lg">
+              <button
+                type="button"
+                onClick={() => setSelectedImage(image)}
+                onKeyDown={(e) => handleKeyDown(e, image)}
+                className="relative overflow-hidden rounded-2xl shadow-lg w-full text-left focus-visible:outline-brand-red focus-visible:outline-4 focus-visible:outline-offset-2"
+                aria-label={`View full image: ${image.alt}`}
+              >
                 <Image
                   src={image.src}
                   alt={image.alt}
                   width={400}
                   height={index % 3 === 0 ? 400 : 300}
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
                 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-chocolate/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-chocolate/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <p className="text-white font-semibold">{image.alt}</p>
                   </div>
                 </div>
 
                 {/* Zoom Icon */}
-                <div className="absolute top-4 right-4 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                <div 
+                  className="absolute top-4 right-4 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                  aria-hidden="true"
+                >
                   <svg className="w-5 h-5 text-chocolate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                   </svg>
                 </div>
-              </div>
+              </button>
             </motion.div>
           ))}
         </div>
@@ -93,15 +109,20 @@ export default function GallerySection() {
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
             className="fixed inset-0 bg-chocolate/90 z-50 flex items-center justify-center p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image lightbox"
           >
             <motion.button
+              type="button"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-xl z-10"
+              className="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-xl z-10 focus-visible:outline-brand-red focus-visible:outline-4 focus-visible:outline-offset-2 touch-target"
+              aria-label="Close image"
             >
-              <X className="w-6 h-6 text-chocolate" />
+              <X className="w-6 h-6 text-chocolate" aria-hidden="true" />
             </motion.button>
             
             <motion.div
@@ -118,7 +139,7 @@ export default function GallerySection() {
                 height={600}
                 className="w-full h-auto object-contain"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-chocolate to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-chocolate to-transparent" aria-hidden="true">
                 <p className="text-white font-semibold text-lg">{selectedImage.alt}</p>
               </div>
             </motion.div>

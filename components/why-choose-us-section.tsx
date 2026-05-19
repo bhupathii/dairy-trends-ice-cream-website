@@ -48,10 +48,10 @@ export default function WhyChooseUsSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative py-20 lg:py-28 overflow-hidden">
+    <section className="relative py-20 lg:py-28 overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cream via-pink/20 to-cream" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-red/5 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-pink/20 to-background pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-red/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
@@ -98,6 +98,7 @@ export default function WhyChooseUsSection() {
                   whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
                   transition={{ duration: 0.5 }}
                   className={`w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:shadow-xl transition-shadow`}
+                  aria-hidden="true"
                 >
                   <feature.icon className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
                 </motion.div>
@@ -116,6 +117,7 @@ export default function WhyChooseUsSection() {
                   whileHover={{ width: '100%' }}
                   transition={{ duration: 0.3 }}
                   className={`h-1 bg-gradient-to-r ${feature.gradient} rounded-full mt-4`}
+                  aria-hidden="true"
                 />
               </div>
             </motion.div>
@@ -134,9 +136,10 @@ export default function WhyChooseUsSection() {
               Ready to taste the difference?
             </p>
             <motion.button
+              type="button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-brand-red text-white px-6 py-3 rounded-full font-semibold btn-glow"
+              className="bg-brand-red text-white px-6 py-3 rounded-full font-semibold btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target"
             >
               Order Now
             </motion.button>

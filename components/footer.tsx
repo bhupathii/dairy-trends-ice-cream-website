@@ -18,9 +18,9 @@ export default function Footer() {
   return (
     <footer className="relative bg-chocolate text-white overflow-hidden">
       {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-full h-1 gradient-red-yellow" />
-      <div className="absolute top-20 left-10 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 w-full h-1 gradient-red-yellow pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-20 left-10 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
@@ -36,9 +36,10 @@ export default function Footer() {
                 <div className="relative h-12 w-36 md:h-14 md:w-44">
                   <Image
                     src="/images/dairy-trends-logo.png"
-                    alt="Dairy Trends Ice Creams"
+                    alt="Dairy Trends Ice Creams Logo"
                     fill
                     className="object-contain"
+                    sizes="(max-width: 768px) 144px, 176px"
                     priority
                   />
                 </div>
@@ -52,19 +53,20 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex gap-3">
               {[
-                { icon: Facebook, href: '#' },
-                { icon: Instagram, href: '#' },
-                { icon: Twitter, href: '#' },
-                { icon: Youtube, href: '#' }
+                { icon: Facebook, href: '#', label: 'Facebook' },
+                { icon: Instagram, href: '#', label: 'Instagram' },
+                { icon: Twitter, href: '#', label: 'Twitter' },
+                { icon: Youtube, href: '#', label: 'YouTube' }
               ].map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-white/10 hover:bg-brand-red rounded-full flex items-center justify-center transition-colors"
+                  className="w-10 h-10 bg-white/10 hover:bg-brand-red rounded-full flex items-center justify-center transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 touch-target"
+                  aria-label={`Visit our ${social.label} page`}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-5 h-5" aria-hidden="true" />
                 </motion.a>
               ))}
             </div>
@@ -77,9 +79,10 @@ export default function Footer() {
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <motion.button
+                    type="button"
                     onClick={() => scrollToSection(link.href)}
                     whileHover={{ x: 5 }}
-                    className="text-white/70 hover:text-white transition-colors"
+                    className="text-white/70 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded"
                   >
                     {link.name}
                   </motion.button>
@@ -95,9 +98,10 @@ export default function Footer() {
               {['Ice Cream Cups', 'Cones', 'Family Packs', 'Sundaes', 'Ice Cream Cakes', 'Milkshakes'].map((item) => (
                 <li key={item}>
                   <motion.button
+                    type="button"
                     onClick={() => scrollToSection('#products')}
                     whileHover={{ x: 5 }}
-                    className="text-white/70 hover:text-white transition-colors"
+                    className="text-white/70 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded"
                   >
                     {item}
                   </motion.button>
@@ -111,25 +115,25 @@ export default function Footer() {
             <h4 className="text-lg font-bold mb-6 text-golden">Contact Info</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                <Phone className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <p className="text-white/70 text-sm">Call Us</p>
-                  <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="text-white hover:text-golden transition-colors">
+                  <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="text-white hover:text-golden transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">
                     {contactInfo.phone}
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                <Mail className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <p className="text-white/70 text-sm">Email Us</p>
-                  <a href={`mailto:${contactInfo.email}`} className="text-white hover:text-golden transition-colors">
+                  <a href={`mailto:${contactInfo.email}`} className="text-white hover:text-golden transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">
                     {contactInfo.email}
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <p className="text-white/70 text-sm">Visit Us</p>
                   <p className="text-white">{contactInfo.address}</p>
@@ -140,7 +144,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-white/10 mb-8" />
+        <div className="h-px bg-white/10 mb-8" aria-hidden="true" />
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
@@ -148,8 +152,8 @@ export default function Footer() {
             &copy; {currentYear} Dairy Trends Ice Creams. All Rights Reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <a href="#" className="text-white/60 hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="text-white/60 hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" className="text-white/60 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">Privacy Policy</a>
+            <a href="#" className="text-white/60 hover:text-white transition-colors focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded">Terms of Service</a>
           </div>
         </div>
       </div>

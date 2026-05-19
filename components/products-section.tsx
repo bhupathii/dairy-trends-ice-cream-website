@@ -55,21 +55,22 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
         rotateY: rotateY,
         transformStyle: 'preserve-3d',
       }}
-      className="relative group cursor-pointer"
+      className="relative group focus-within:ring-4 focus-within:ring-brand-red/50 rounded-3xl"
     >
       <div 
         className="glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
         style={{ transform: 'translateZ(50px)' }}
       >
         {/* Image */}
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative h-48 overflow-hidden bg-white/50">
           <Image
             src={product.image}
             alt={product.name}
             fill
             className={`object-cover transition-transform duration-500 ${isHovered ? 'scale-110' : 'scale-100'}`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-          <div className={`absolute inset-0 bg-gradient-to-t from-brand-red/60 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+          <div className={`absolute inset-0 bg-gradient-to-t from-brand-red/60 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} aria-hidden="true" />
         </div>
 
         {/* Content */}
@@ -78,11 +79,13 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
           <p className="text-chocolate/60 text-sm mb-4">{product.description}</p>
           
           <motion.button
+            type="button"
             whileHover={{ x: 5 }}
-            className="flex items-center gap-2 text-brand-red font-semibold group"
+            className="flex items-center gap-2 text-brand-red font-semibold group focus-visible:outline-brand-red focus-visible:outline-2 rounded"
+            aria-label={`Explore ${product.name}`}
           >
             <span>Explore</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </motion.button>
         </div>
 
@@ -94,6 +97,7 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
               ? 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 55%, transparent 60%)'
               : 'none'
           }}
+          aria-hidden="true"
         />
       </div>
     </motion.div>
@@ -105,10 +109,10 @@ export default function ProductsSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="products" className="relative py-20 lg:py-28 overflow-hidden bg-cream">
+    <section id="products" className="relative py-20 lg:py-28 overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-pink/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-golden/10 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-pink/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
