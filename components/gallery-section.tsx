@@ -19,10 +19,7 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="relative py-20 lg:py-28 overflow-hidden bg-background">
-      {/* Background */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-pink/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+    <section id="gallery" className="relative py-20 lg:py-28 overflow-hidden bg-white">
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
@@ -42,7 +39,7 @@ export default function GallerySection() {
           </motion.span>
           <h2 
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4"
-            style={{ fontFamily: 'var(--font-fredoka)' }}
+            style={{ fontFamily: 'var(--font-baloo)' }}
           >
             Sweet <span className="text-brand-red">Moments</span>
           </h2>

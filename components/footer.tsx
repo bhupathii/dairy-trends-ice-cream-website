@@ -34,14 +34,8 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-chocolate overflow-hidden" aria-label="Site footer">
-      {/* Top gradient bar */}
-      <div className="h-1 w-full gradient-red-yellow" aria-hidden="true" />
-
-      {/* Background ambient glows */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-[-5%] left-[10%] w-80 h-80 bg-brand-red/10 rounded-full blur-[70px]" />
-        <div className="absolute bottom-[-5%] right-[10%] w-72 h-72 bg-golden/8 rounded-full blur-[70px]" />
-      </div>
+      {/* Top clean border */}
+      <div className="h-1 w-full bg-brand-red" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

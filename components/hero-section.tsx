@@ -49,40 +49,9 @@ export default function HeroSection() {
     <section
       id="home"
       ref={ref}
-      className="relative min-h-screen overflow-hidden gradient-hero flex items-center"
+      className="relative min-h-screen overflow-hidden bg-white flex items-center"
       aria-label="Hero section"
     >
-      {/* Parallax background blobs — subtle, not distracting */}
-      <motion.div
-        aria-hidden="true"
-        style={{ y: bgY }}
-        className="absolute inset-0 pointer-events-none"
-      >
-        <div className="absolute top-[-10%] left-[-5%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-brand-red/8 blur-[80px]" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[45vw] h-[45vw] max-w-[500px] max-h-[500px] rounded-full bg-golden/15 blur-[80px]" />
-        <div className="absolute top-[30%] right-[20%] w-[30vw] h-[30vw] max-w-[350px] max-h-[350px] rounded-full bg-pink/25 blur-[60px]" />
-      </motion.div>
-
-      {/* Decorative floating orbs */}
-      <motion.div
-        aria-hidden="true"
-        animate={{ y: [-8, 8, -8], rotate: [0, 8, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-[15%] right-[8%] hidden lg:block w-16 h-16 bg-gradient-to-br from-golden to-golden-light rounded-full shadow-lg shadow-golden/30 pointer-events-none"
-      />
-      <motion.div
-        aria-hidden="true"
-        animate={{ y: [8, -12, 8] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-        className="absolute bottom-[25%] left-[6%] hidden lg:block w-10 h-10 bg-brand-red/80 rounded-full shadow-lg shadow-brand-red/30 pointer-events-none"
-      />
-      <motion.div
-        aria-hidden="true"
-        animate={{ y: [-12, 4, -12], rotate: [0, -8, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-        className="absolute top-[55%] right-[4%] hidden xl:block w-7 h-7 bg-pink-deep rounded-full shadow-md pointer-events-none"
-      />
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24 lg:pt-32 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[82vh]">
 
@@ -105,7 +74,7 @@ export default function HeroSection() {
             <motion.h1
               variants={itemVariants}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-4"
-              style={{ fontFamily: 'var(--font-fredoka)' }}
+              style={{ fontFamily: 'var(--font-baloo)' }}
             >
               <span className="text-gradient-brand">Dairy Trends</span>
               <br />
@@ -116,7 +85,7 @@ export default function HeroSection() {
             <motion.p
               variants={itemVariants}
               className="text-xl sm:text-2xl font-semibold text-golden mb-4"
-              style={{ fontFamily: 'var(--font-fredoka)' }}
+              style={{ fontFamily: 'var(--font-baloo)' }}
             >
               Taste the Trend of Happiness
             </motion.p>
@@ -183,27 +152,11 @@ export default function HeroSection() {
             animate="visible"
             className="relative flex items-center justify-center order-1 lg:order-2 mt-8 lg:mt-0"
           >
-            {/* Rotating gradient ring */}
-            <motion.div
-              aria-hidden="true"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-              className="absolute w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] lg:w-[520px] lg:h-[520px] rounded-full pointer-events-none"
-              style={{
-                background: 'conic-gradient(from 0deg, rgba(215,25,32,0.15), rgba(255,204,0,0.2), rgba(255,232,240,0.3), rgba(215,25,32,0.15))',
-              }}
-            />
+            {/* Rotating gradient ring - removed to clean up design */}
+            {/* Inner cream circle - removed */}
 
-            {/* Inner cream circle */}
-            <div
-              aria-hidden="true"
-              className="absolute w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] lg:w-[450px] lg:h-[450px] rounded-full bg-gradient-to-br from-cream/80 via-pink/40 to-cream pointer-events-none"
-            />
-
-            {/* Main hero image — floating */}
+            {/* Main hero image — static */}
             <motion.div
-              animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               className="relative z-10"
             >
               <div className="relative w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[440px] lg:h-[440px]">
@@ -216,37 +169,6 @@ export default function HeroSection() {
                   sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 440px"
                 />
               </div>
-            </motion.div>
-
-            {/* Floating accent bubbles */}
-            <motion.div
-              aria-hidden="true"
-              animate={{ y: [-18, 0, -18], rotate: [-8, 8, -8] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-2 -right-2 lg:top-8 lg:right-4 w-20 h-20 lg:w-28 lg:h-28 rounded-2xl overflow-hidden shadow-xl border-2 border-white z-20"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=200&h=200&fit=crop"
-                alt=""
-                fill
-                className="object-cover"
-                sizes="112px"
-              />
-            </motion.div>
-
-            <motion.div
-              aria-hidden="true"
-              animate={{ y: [0, -16, 0], rotate: [6, -6, 6] }}
-              transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -bottom-2 -left-2 lg:bottom-14 lg:left-0 w-16 h-16 lg:w-24 lg:h-24 rounded-2xl overflow-hidden shadow-xl border-2 border-white z-20"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=200&h=200&fit=crop"
-                alt=""
-                fill
-                className="object-cover"
-                sizes="96px"
-              />
             </motion.div>
 
             {/* Rating badge */}

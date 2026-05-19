@@ -107,16 +107,7 @@ export default function ProductsSection() {
     activeCategory === 'All' ? products : products.filter(p => p.category === activeCategory)
 
   return (
-    <section id="products" className="relative py-24 lg:py-32 overflow-hidden bg-background">
-      {/* Background blobs */}
-      <div
-        className="absolute top-0 right-0 w-[500px] h-[500px] bg-pink/30 rounded-full blur-[80px] pointer-events-none"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-golden/12 rounded-full blur-[70px] pointer-events-none"
-        aria-hidden="true"
-      />
+    <section id="products" className="relative py-24 lg:py-32 overflow-hidden bg-white">
 
       {/* ── Header (full bleed container) ── */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
@@ -136,9 +127,9 @@ export default function ProductsSection() {
           </motion.div>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4 tracking-tight"
-            style={{ fontFamily: 'var(--font-fredoka)' }}
+            style={{ fontFamily: 'var(--font-baloo)' }}
           >
-            Explore Our <span className="text-gradient-brand">Range</span>
+            Explore Our <span className="text-brand-red">Range</span>
           </h2>
           <p className="text-chocolate/60 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
             From classic cups to indulgent sundaes — the perfect frozen treat for every moment.

@@ -16,11 +16,7 @@ export default function TestimonialsSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden" aria-labelledby="testimonials-heading">
-      {/* Background */}
-      <div className="absolute inset-0 gradient-warm pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-1/2 left-[-5%] w-[400px] h-[400px] bg-brand-red/6 rounded-full blur-[70px] -translate-y-1/2 pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-1/2 right-[-5%] w-[350px] h-[350px] bg-golden/10 rounded-full blur-[70px] -translate-y-1/2 pointer-events-none" aria-hidden="true" />
+    <section className="relative py-24 lg:py-32 overflow-hidden bg-white" aria-labelledby="testimonials-heading">
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
 
@@ -42,10 +38,10 @@ export default function TestimonialsSection() {
           <h2
             id="testimonials-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4 tracking-tight"
-            style={{ fontFamily: 'var(--font-fredoka)' }}
+            style={{ fontFamily: 'var(--font-baloo)' }}
           >
             What Our{' '}
-            <span className="text-gradient-brand">Customers</span> Say
+            <span className="text-brand-red">Customers</span> Say
           </h2>
           <p className="text-chocolate/60 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
             Don&apos;t just take our word for it — here&apos;s what our happy customers have to say.

@@ -37,11 +37,7 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="about" className="relative py-20 lg:py-28 overflow-hidden bg-background">
-      {/* Background */}
-      <div className="absolute inset-0 gradient-warm pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-20 left-10 w-64 h-64 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-golden/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+    <section id="about" className="relative py-20 lg:py-28 overflow-hidden bg-white">
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -76,9 +72,7 @@ export default function AboutSection() {
                 className="absolute -bottom-6 -right-6 lg:-right-10"
               >
                 <motion.div 
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="glass p-6 rounded-2xl shadow-xl"
+                  className="glass p-6 rounded-2xl shadow-xl border border-chocolate/10"
                 >
                   <div className="text-center">
                     <span className="text-4xl font-bold text-brand-red">10+</span>
@@ -95,8 +89,6 @@ export default function AboutSection() {
                 className="absolute -top-6 -left-6 lg:-left-10"
               >
                  <motion.div
-                  animate={{ y: [5, -5, 5] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                   className="w-28 h-28 lg:w-36 lg:h-36 rounded-2xl overflow-hidden shadow-xl border-4 border-white relative"
                 >
                   <Image
@@ -128,7 +120,7 @@ export default function AboutSection() {
 
             <h2 
               className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-6"
-              style={{ fontFamily: 'var(--font-fredoka)' }}
+              style={{ fontFamily: 'var(--font-baloo)' }}
             >
               About <span className="text-brand-red">Dairy Trends</span>
             </h2>

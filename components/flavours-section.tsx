@@ -16,10 +16,7 @@ export default function FlavoursSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="flavours" className="relative py-20 lg:py-28 overflow-hidden bg-background">
-      {/* Background Decoration */}
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-pink/20 to-transparent pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-golden/10 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" aria-hidden="true" />
+    <section id="flavours" className="relative py-20 lg:py-28 overflow-hidden bg-white">
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
@@ -39,7 +36,7 @@ export default function FlavoursSection() {
           </motion.span>
           <h2 
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4"
-            style={{ fontFamily: 'var(--font-fredoka)' }}
+            style={{ fontFamily: 'var(--font-baloo)' }}
           >
             Our <span className="text-brand-red">Delicious</span> Flavours
           </h2>

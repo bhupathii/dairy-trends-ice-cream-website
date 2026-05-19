@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Poppins, Fredoka } from 'next/font/google'
+import { Poppins, Baloo_2 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -9,10 +9,10 @@ const poppins = Poppins({
   variable: '--font-poppins'
 })
 
-const fredoka = Fredoka({ 
+const baloo = Baloo_2({ 
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-fredoka'
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-baloo'
 })
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${fredoka.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${poppins.variable} ${baloo.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased overflow-x-hidden bg-background text-foreground min-h-screen">
         {/* Skip to main content link for keyboard accessibility */}
         <a href="#main-content" className="visually-hidden focus-visible:not-sr-only focus-visible:absolute focus-visible:top-4 focus-visible:left-4 focus-visible:z-[100] focus-visible:bg-brand-red focus-visible:text-white focus-visible:p-3 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/40 shadow-lg font-medium">
