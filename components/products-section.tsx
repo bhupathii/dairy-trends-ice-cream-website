@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { products } from '@/lib/data'
@@ -13,35 +13,6 @@ interface TiltCardProps {
 }
 
 function TiltCard({ product, index, isInView }: TiltCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
-  
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-
-  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 })
-  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 })
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['10deg', '-10deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-10deg', '10deg'])
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-    const xPct = mouseX / width - 0.5
-    const yPct = mouseY / height - 0.5
-    x.set(xPct)
-    y.set(yPct)
-  }
-
-  const handleMouseLeave = () => {
-    setIsHovered(false)
-    x.set(0)
-    y.set(0)
-  }
-
   return (
     <motion.div
       layout
@@ -49,19 +20,10 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX: rotateX,
-        rotateY: rotateY,
-        transformStyle: 'preserve-3d',
-      }}
       className="relative group focus-within:ring-4 focus-within:ring-brand-red/50 rounded-3xl h-full"
     >
       <div 
-        className="glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
-        style={{ transform: 'translateZ(50px)' }}
+        className="glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full flex flex-col bg-white"
       >
         {/* Image */}
         <div className="relative h-56 overflow-hidden bg-white/50 shrink-0">
@@ -69,10 +31,9 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
             src={product.image}
             alt={product.name}
             fill
-            className={`object-cover transition-transform duration-500 ${isHovered ? 'scale-110' : 'scale-100'}`}
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-          <div className={`absolute inset-0 bg-gradient-to-t from-brand-red/60 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} aria-hidden="true" />
           
           {product.badge && (
             <div className="absolute top-4 right-4 bg-golden text-chocolate text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
@@ -82,7 +43,7 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
         </div>
 
         {/* Content */}
-        <div className="p-5 flex flex-col flex-grow bg-white/40" style={{ transform: 'translateZ(30px)' }}>
+        <div className="p-5 flex flex-col flex-grow bg-white/40">
           <div className="flex justify-between items-start mb-2 gap-2">
             <h3 className="font-bold text-chocolate text-xl leading-tight">{product.name}</h3>
           </div>
@@ -95,7 +56,7 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
             <motion.button
               type="button"
               whileHover={{ x: 5 }}
-              className="flex items-center gap-2 text-brand-red font-semibold group focus-visible:outline-brand-red focus-visible:outline-2 rounded"
+              className="flex items-center gap-2 text-brand-red font-semibold group-focus-visible:outline-brand-red group-focus-visible:outline-2 rounded"
               aria-label={`Explore ${product.name}`}
             >
               <span>Explore</span>
@@ -103,17 +64,6 @@ function TiltCard({ product, index, isInView }: TiltCardProps) {
             </motion.button>
           </div>
         </div>
-
-        {/* Shine Effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-          style={{
-            background: isHovered 
-              ? 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 55%, transparent 60%)'
-              : 'none'
-          }}
-          aria-hidden="true"
-        />
       </div>
     </motion.div>
   )
@@ -182,11 +132,9 @@ export default function ProductsSection() {
           ))}
         </div>
 
-        {/* Products Grid */}
         <motion.div 
           layout
           className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8"
-          style={{ perspective: '1000px' }}
         >
           <AnimatePresence mode="popLayout">
             {filteredProducts.map((product, index) => (
