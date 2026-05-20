@@ -12,6 +12,7 @@ interface ProductsSectionProps {
   limit?: number
   showViewAll?: boolean
   className?: string
+  isPageHeader?: boolean
 }
 
 interface ProductCardProps {
@@ -19,6 +20,7 @@ interface ProductCardProps {
   index: number
   isInView: boolean
   static?: boolean
+  headingTag?: 'h2' | 'h3'
 }
 
 const categoryEmojis: Record<string, string> = {
@@ -31,7 +33,7 @@ const categoryEmojis: Record<string, string> = {
   'Specialities': '🍰'
 }
 
-function ProductCard({ product, index, isInView, static: isStatic }: ProductCardProps) {
+function ProductCard({ product, index, isInView, static: isStatic, headingTag = 'h3' }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -59,9 +61,10 @@ function ProductCard({ product, index, isInView, static: isStatic }: ProductCard
           <Image
             src={product.image}
             alt={product.name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 72vw, (max-width: 1024px) 50vw, 25vw"
+            width={400}
+            height={300}
+            className="w-full h-full object-cover"
+            priority={index < 3}
           />
         </motion.div>
 
@@ -93,9 +96,15 @@ function ProductCard({ product, index, isInView, static: isStatic }: ProductCard
             {categoryEmojis[product.category] || '🍦'} {product.category}
           </span>
         </div>
-        <h3 className="font-extrabold text-chocolate text-lg leading-snug mb-2 group-hover:text-brand-red transition-colors">
-          {product.name}
-        </h3>
+        {headingTag === 'h2' ? (
+          <h2 className="font-extrabold text-chocolate text-lg leading-snug mb-2 group-hover:text-brand-red transition-colors">
+            {product.name}
+          </h2>
+        ) : (
+          <h3 className="font-extrabold text-chocolate text-lg leading-snug mb-2 group-hover:text-brand-red transition-colors">
+            {product.name}
+          </h3>
+        )}
         <p className="text-chocolate/65 text-sm leading-relaxed mb-0 flex-grow line-clamp-2">
           {product.description}
         </p>
@@ -104,7 +113,7 @@ function ProductCard({ product, index, isInView, static: isStatic }: ProductCard
   )
 }
 
-export default function ProductsSection({ limit = 8, showViewAll = true, className }: ProductsSectionProps = {}) {
+export default function ProductsSection({ limit = 8, showViewAll = true, className, isPageHeader = false }: ProductsSectionProps = {}) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [activeCategory, setActiveCategory] = useState('All')
@@ -134,12 +143,21 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
           >
             Our Products
           </motion.div>
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-chocolate mb-4 tracking-tight"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            Explore Our <span className="text-brand-red">Sweet Range</span>
-          </h2>
+          {isPageHeader ? (
+            <h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-chocolate mb-4 tracking-tight"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Explore Our <span className="text-brand-red">Sweet Range</span>
+            </h1>
+          ) : (
+            <h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-chocolate mb-4 tracking-tight"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Explore Our <span className="text-brand-red">Sweet Range</span>
+            </h2>
+          )}
           <p className="text-chocolate/70 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
             From classic cups to rich waffle cones and traditional kulfis — discover our 27+ premium frozen treats crafted for every sweet craving.
           </p>
@@ -207,6 +225,7 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
                   index={index}
                   isInView={isInView}
                   static
+                  headingTag={isPageHeader ? 'h2' : 'h3'}
                 />
               </div>
             ))}
@@ -246,6 +265,7 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
                 product={product}
                 index={index}
                 isInView={isInView}
+                headingTag={isPageHeader ? 'h2' : 'h3'}
               />
             ))}
           </AnimatePresence>

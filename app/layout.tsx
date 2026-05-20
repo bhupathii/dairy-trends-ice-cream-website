@@ -19,6 +19,39 @@ export const metadata: Metadata = {
   title: 'Dairy Trends Ice Creams | Taste the Trend of Happiness',
   description: 'Fresh, creamy, and delicious ice creams made to bring joy in every scoop. Premium quality ice cream for families, celebrations, and sweet moments.',
   keywords: ['ice cream', 'dairy', 'frozen desserts', 'ice cream cones', 'family packs', 'sundaes'],
+  metadataBase: new URL('https://dairytrends.in'),
+  alternates: {
+    canonical: '/',
+  },
+  icons: {
+    icon: [
+      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
+      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' }
+    ],
+    apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: 'Dairy Trends Ice Creams | Taste the Trend of Happiness',
+    description: 'Fresh, creamy, and delicious ice creams made to bring joy in every scoop. Premium quality ice cream for families, celebrations, and sweet moments.',
+    url: 'https://dairytrends.in',
+    siteName: 'Dairy Trends Ice Creams',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: '/images/dairy-trends-logo.png',
+        width: 800,
+        height: 600,
+        alt: 'Dairy Trends Ice Creams Logo',
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dairy Trends Ice Creams | Taste the Trend of Happiness',
+    description: 'Fresh, creamy, and delicious ice creams made to bring joy in every scoop. Premium quality ice cream for families, celebrations, and sweet moments.',
+    images: ['/images/dairy-trends-logo.png'],
+  },
 }
 
 export default function RootLayout({

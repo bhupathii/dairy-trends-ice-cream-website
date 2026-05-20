@@ -69,9 +69,9 @@ export default function FlavoursSection() {
                   <Image
                     src={flavour.image}
                     alt={flavour.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 1024px) 100vw, 25vw"
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
@@ -117,9 +117,9 @@ export default function FlavoursSection() {
                     <Image
                       src={flavour.image}
                       alt={flavour.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 80vw, 50vw"
+                      width={400}
+                      height={300}
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="p-4 bg-white flex flex-col grow">

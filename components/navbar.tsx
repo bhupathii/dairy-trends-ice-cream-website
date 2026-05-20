@@ -10,10 +10,12 @@ import { useRouter, usePathname } from 'next/navigation'
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeLink, setActiveLink] = useState('#home')
+  const [activeLink, setActiveLink] = useState('/')
   const layoutId = useId()
   const router = useRouter()
   const pathname = usePathname()
+
+  const getHash = (href: string) => href.includes('#') ? href.substring(href.indexOf('#')) : href
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 60)
@@ -23,12 +25,14 @@ export default function Navbar() {
 
   // Track active section on scroll
   useEffect(() => {
-    const sections = navLinks.map(l => document.querySelector(l.href))
+    const targetIds = ['home', 'flavours', 'about', 'products', 'contact']
+    const sections = targetIds.map(id => document.getElementById(id))
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            setActiveLink(`#${entry.target.id}`)
+            const targetId = entry.target.id
+            setActiveLink(targetId === 'home' ? '/' : `/#${targetId}`)
           }
         })
       },
@@ -42,18 +46,33 @@ export default function Navbar() {
     e.preventDefault()
     setIsMobileMenuOpen(false)
     
-    // If element doesn't exist on current page, navigate to home page with the hash
-    const element = document.querySelector(href)
-    if (!element && pathname !== '/') {
-      router.push(`/${href}`)
+    if (href === '/' || href === '/#home') {
+      if (pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        setActiveLink('/')
+        window.history.pushState(null, '', '/')
+      } else {
+        router.push('/')
+      }
+      return
+    }
+    
+    if (!href.includes('#')) {
+      router.push(href)
+      return
+    }
+    
+    const hash = getHash(href)
+    const element = hash ? document.getElementById(hash.substring(1)) : null
+    
+    if (!element) {
+      router.push(href)
       return
     }
 
     setActiveLink(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-      window.history.pushState(null, '', pathname === '/' ? href : pathname + href)
-    }
+    element.scrollIntoView({ behavior: 'smooth' })
+    window.history.pushState(null, '', pathname === '/' ? hash : pathname + hash)
   }
 
   return (
@@ -71,18 +90,19 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <motion.a
-              href="#home"
-              onClick={(e) => scrollToSection(e, '#home')}
+              href="/"
+              onClick={(e) => scrollToSection(e, '/')}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="relative h-12 w-36 md:h-14 md:w-44 focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-4 rounded shrink-0"
+              className="focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-4 rounded shrink-0"
               aria-label="Dairy Trends Home"
             >
               <Image
                 src="/images/dairy-trends-logo.png"
                 alt="Dairy Trends Ice Creams logo"
-                fill
-                className="object-contain"
+                width={176}
+                height={56}
+                className="h-12 w-auto md:h-14 object-contain"
                 priority
               />
             </motion.a>
@@ -128,8 +148,8 @@ export default function Navbar() {
                 <span className="hidden xl:inline text-sm">+91 98765 43210</span>
               </motion.a>
               <motion.a
-                href="#contact"
-                onClick={(e) => scrollToSection(e, '#contact')}
+                href="/#contact"
+                onClick={(e) => scrollToSection(e, '/#contact')}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 className="bg-brand-red text-white px-5 py-2.5 rounded-full font-semibold text-sm btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
@@ -145,7 +165,7 @@ export default function Navbar() {
               className="lg:hidden w-11 h-11 bg-brand-red rounded-full flex items-center justify-center text-white touch-target focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 shadow-lg"
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-controls="mobile-menu"
+              aria-controls={isMobileMenuOpen ? 'mobile-menu' : undefined}
             >
               <AnimatePresence mode="wait">
                 {isMobileMenuOpen ? (
@@ -194,9 +214,14 @@ export default function Navbar() {
             >
               {/* Header */}
               <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-chocolate/8">
-                <div className="relative h-10 w-32">
-                  <Image src="/images/dairy-trends-logo.png" alt="Dairy Trends" fill className="object-contain" />
-                </div>
+                <Image
+                  src="/images/dairy-trends-logo.png"
+                  alt="Dairy Trends"
+                  width={128}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                  priority
+                />
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-9 h-9 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red focus-visible:outline-brand-red"
@@ -240,8 +265,8 @@ export default function Navbar() {
                   +91 98765 43210
                 </a>
                 <motion.a
-                  href="#contact"
-                  onClick={(e) => scrollToSection(e, '#contact')}
+                  href="/#contact"
+                  onClick={(e) => scrollToSection(e, '/#contact')}
                   whileTap={{ scale: 0.96 }}
                   className="block w-full bg-brand-red text-white px-6 py-3.5 rounded-2xl font-semibold text-center btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
                 >

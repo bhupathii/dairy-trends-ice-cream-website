@@ -39,3 +39,8 @@ skills-lock.json
 # Local env files
 .env
 
+# Audit reports and tools
+audit_report.txt
+.squirrel/
+squirrel.toml
+

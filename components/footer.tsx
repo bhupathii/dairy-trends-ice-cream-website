@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
 import { navLinks, contactInfo } from '@/lib/data'
 
 const containerVariants = {
@@ -22,14 +24,32 @@ const SOCIAL_LINKS = [
   { icon: Youtube, href: '#', label: 'YouTube', color: 'hover:bg-brand-red' },
 ]
 
+const FOOTER_QUICK_LINKS = [
+  { name: 'Home', href: '/' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Product Catalog', href: '/products' },
+  { name: 'Contact Us', href: '/contact' },
+  { name: 'Privacy Policy', href: '/privacy-policy' },
+]
+
 const PRODUCTS = ['Cones Range', 'Sundae Cups', 'Family Tubs', 'Kulfis & Sticks', 'Specialities']
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const router = useRouter()
+  const pathname = usePathname()
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) element.scrollIntoView({ behavior: 'smooth' })
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.includes('#')) {
+      return // Allow standard link navigation
+    }
+    const hash = href.includes('#') ? href.substring(href.indexOf('#')) : href
+    const element = hash ? document.getElementById(hash.substring(1)) : null
+    if (element) {
+      e.preventDefault()
+      element.scrollIntoView({ behavior: 'smooth' })
+      window.history.pushState(null, '', pathname === '/' ? hash : pathname + hash)
+    }
   }
 
   return (
@@ -55,15 +75,13 @@ export default function Footer() {
           {/* Brand Column */}
           <motion.div variants={colVariants} className="lg:col-span-1">
             <div className="inline-block bg-white/95 p-3 rounded-2xl shadow-md mb-6 border border-white/20">
-              <div className="relative h-12 w-36">
-                <Image
-                  src="/images/dairy-trends-logo.png"
-                  alt="Dairy Trends Ice Creams Logo"
-                  fill
-                  className="object-contain"
-                  sizes="144px"
-                />
-              </div>
+              <Image
+                src="/images/dairy-trends-logo.png"
+                alt="Dairy Trends Ice Creams Logo"
+                width={144}
+                height={48}
+                className="h-12 w-auto object-contain"
+              />
             </div>
             <p className="text-white/70 mb-6 leading-relaxed text-sm">
               Dairy Trends Ice Creams brings you fresh, creamy, and premium ice creams for every sweet moment.{' '}
@@ -93,17 +111,17 @@ export default function Footer() {
           <motion.div variants={colVariants}>
             <h3 className="text-xs font-black uppercase tracking-widest text-golden mb-5">Quick Links</h3>
             <ul className="space-y-2.5" role="list">
-              {navLinks.map((link) => (
+              {FOOTER_QUICK_LINKS.map((link) => (
                 <li key={link.name}>
-                  <motion.button
-                    type="button"
-                    onClick={() => scrollToSection(link.href)}
-                    whileHover={{ x: 4 }}
+                  <Link
+                    href={link.href}
                     className="flex items-center gap-2 text-white/70 hover:text-golden text-sm transition-colors duration-200 focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded group font-bold"
                   >
                     <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-golden" aria-hidden="true" />
-                    {link.name}
-                  </motion.button>
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">
+                      {link.name}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -115,15 +133,15 @@ export default function Footer() {
             <ul className="space-y-2.5" role="list">
               {PRODUCTS.map((item) => (
                 <li key={item}>
-                  <motion.button
-                    type="button"
-                    onClick={() => scrollToSection('#products')}
-                    whileHover={{ x: 4 }}
+                  <Link
+                    href="/products"
                     className="flex items-center gap-2 text-white/70 hover:text-golden text-sm transition-colors duration-200 focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 rounded group font-bold"
                   >
                     <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-golden" aria-hidden="true" />
-                    {item}
-                  </motion.button>
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">
+                      {item}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -181,7 +199,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6 text-xs font-bold">
             <a
-              href="#"
+              href="/privacy-policy"
               className="text-white/40 hover:text-white/70 transition-colors focus-visible:outline-white focus-visible:outline-2 rounded"
             >
               Privacy Policy

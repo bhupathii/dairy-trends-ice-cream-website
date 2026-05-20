@@ -186,10 +186,10 @@ export default function HeroSection() {
                 <Image
                   src="/ice-cream images/homee.jpeg"
                   alt="Dairy Trends Premium Ice Cream Scoop"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-700"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   priority
-                  sizes="(max-width: 640px) 280px, (max-width: 1024px) 360px, 440px"
                 />
               </div>
             </motion.div>

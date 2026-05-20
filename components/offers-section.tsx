@@ -72,9 +72,9 @@ export default function OffersSection() {
                   <Image
                     src={offer.image}
                     alt={offer.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-red/40 to-transparent" aria-hidden="true" />
                   

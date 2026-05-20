@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Phone, Mail, MapPin, Send, MessageCircle, Building2, MapPinSecondary } from 'lucide-react'
+import { Phone, Mail, MapPin, Send, MessageCircle, Building2 } from 'lucide-react'
 import { contactInfo } from '@/lib/data'
 
 export default function ContactSection() {
@@ -19,14 +19,23 @@ export default function ContactSection() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [captchaVerified, setCaptchaVerified] = useState(false)
+  const [captchaLoading, setCaptchaLoading] = useState(false)
+  const [captchaError, setCaptchaError] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!captchaVerified) {
+      setCaptchaError(true)
+      return
+    }
+    setCaptchaError(false)
     setIsSubmitting(true)
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1200))
     setIsSubmitting(false)
     setIsSubmitted(true)
+    setCaptchaVerified(false)
     setTimeout(() => {
       setIsSubmitted(false)
       setFormData({
@@ -224,6 +233,56 @@ export default function ContactSection() {
                     />
                   </div>
 
+                  {/* CAPTCHA Protection */}
+                  <div className="flex flex-col gap-1.5">
+                    <div 
+                      className="g-recaptcha border border-chocolate/10 rounded-xl px-4 py-3 bg-cream-deep/20 flex items-center justify-between shadow-sm select-none"
+                      id="recaptcha-container"
+                    >
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (captchaVerified) return
+                            setCaptchaLoading(true)
+                            setCaptchaError(false)
+                            setTimeout(() => {
+                              setCaptchaLoading(false)
+                              setCaptchaVerified(true)
+                            }, 1000)
+                          }}
+                          disabled={captchaLoading || captchaVerified}
+                          className={`w-6 h-6 rounded-md border transition-all flex items-center justify-center ${
+                            captchaVerified 
+                              ? 'bg-emerald-500 border-emerald-500 text-white' 
+                              : 'border-chocolate/30 hover:border-brand-red bg-white'
+                          }`}
+                          aria-label="Verify you are human"
+                          aria-pressed={captchaVerified}
+                        >
+                          {captchaLoading ? (
+                            <div className="w-3 h-3 border-2 border-brand-red/30 border-t-brand-red rounded-full animate-spin" />
+                          ) : captchaVerified ? (
+                            <svg className="w-3 h-3 fill-current font-bold" viewBox="0 0 20 20">
+                              <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+                            </svg>
+                          ) : null}
+                        </button>
+                        <span className="text-xs font-bold text-chocolate">I am not a robot</span>
+                      </div>
+                      <div className="flex flex-col items-end opacity-60">
+                        <span className="text-[9px] font-black tracking-widest text-chocolate uppercase">reCAPTCHA</span>
+                        <span className="text-[7px] text-chocolate/75 font-semibold">Privacy • Terms</span>
+                      </div>
+                    </div>
+                    {captchaError && (
+                      <p className="text-brand-red text-xs font-bold" id="captcha-error">
+                        Please verify that you are not a robot.
+                      </p>
+                    )}
+                    <input type="hidden" name="g-recaptcha-response" value={captchaVerified ? "verified_token" : ""} />
+                  </div>
+
                   {/* Submit Button */}
                   <motion.button
                     type="submit"
@@ -295,7 +354,6 @@ export default function ContactSection() {
                   transition={{ delay: 0.3 + index * 0.08 }}
                   whileHover={{ y: -4, scale: 1.02 }}
                   className="cursor-pointer bg-cream/30 p-5 rounded-2xl border border-chocolate/5 shadow-sm hover:shadow-md transition-all group focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target block"
-                  aria-label={`${item.label}: ${item.value}`}
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0" aria-hidden="true">

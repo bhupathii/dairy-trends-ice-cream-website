@@ -32,7 +32,7 @@ const aboutFeatures = [
   }
 ]
 
-export default function AboutSection() {
+export default function AboutSection({ priority = false }: { priority?: boolean }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -57,9 +57,10 @@ export default function AboutSection() {
                 <Image
                   src="/ice-cream images/DSC09384 Medium.png"
                   alt="A delicious Dairy Trends ice cream being served"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  width={600}
+                  height={500}
+                  className="w-full h-full object-cover"
+                  priority={priority}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-red/30 to-transparent pointer-events-none" aria-hidden="true" />
               </motion.div>
@@ -94,9 +95,9 @@ export default function AboutSection() {
                   <Image
                     src="/ice-cream images/DSC09037 Medium.png"
                     alt="Close up of an ice cream cone"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 112px, 144px"
+                    width={200}
+                    height={200}
+                    className="w-full h-full object-cover"
                   />
                 </motion.div>
               </motion.div>
