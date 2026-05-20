@@ -64,14 +64,6 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 lg:mb-20"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.2 }}
-            className="inline-block bg-brand-red/10 text-brand-red px-4 py-2 rounded-full text-sm font-bold mb-4"
-          >
-            Partner With Us
-          </motion.span>
           <h2 
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4"
             style={{ fontFamily: 'var(--font-display)' }}
@@ -123,7 +115,7 @@ export default function ContactSection() {
                       value={formData.enquiryType}
                       onChange={(e) => setFormData({ ...formData, enquiryType: e.target.value })}
                       required
-                      className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors font-bold text-chocolate text-sm"
+                      className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors font-bold text-chocolate text-base"
                     >
                       <option value="Bulk Order">Bulk Order (Parties / Weddings)</option>
                       <option value="Distributor Opportunity">Distributor Opportunity</option>
@@ -145,7 +137,7 @@ export default function ContactSection() {
                       required
                       aria-required="true"
                       placeholder="Enter your name"
-                      className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-sm"
+                      className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-base"
                     />
                   </div>
 
@@ -163,7 +155,7 @@ export default function ContactSection() {
                         required
                         aria-required="true"
                         placeholder="+91 XXXXX XXXXX"
-                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-sm"
+                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-base"
                       />
                     </div>
                     {/* Email field */}
@@ -179,7 +171,7 @@ export default function ContactSection() {
                         required
                         aria-required="true"
                         placeholder="yourname@email.com"
-                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-sm"
+                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-base"
                       />
                     </div>
                   </div>
@@ -197,7 +189,7 @@ export default function ContactSection() {
                         onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                         required={isBusinessEnquiry}
                         placeholder="Optional"
-                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-sm"
+                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-base"
                       />
                     </div>
                     <div>
@@ -211,7 +203,7 @@ export default function ContactSection() {
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                         required
                         placeholder="e.g. Hyderabad, Vijayawada"
-                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-sm"
+                        className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors text-base"
                       />
                     </div>
                   </div>
@@ -229,7 +221,7 @@ export default function ContactSection() {
                       aria-required="true"
                       rows={4}
                       placeholder="Specify your expected order volume, date of event, or shop details..."
-                      className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors resize-none text-sm leading-relaxed"
+                      className="w-full px-4 py-3.5 rounded-xl bg-white border-2 border-border focus:border-brand-red focus:outline-none focus-visible:outline-brand-red focus-visible:outline-2 transition-colors resize-none text-base leading-relaxed"
                     />
                   </div>
 
@@ -239,7 +231,7 @@ export default function ContactSection() {
                       className="g-recaptcha border border-chocolate/10 rounded-xl px-4 py-3 bg-cream-deep/20 flex items-center justify-between shadow-sm select-none"
                       id="recaptcha-container"
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1.5">
                         <button
                           type="button"
                           onClick={() => {
@@ -252,21 +244,24 @@ export default function ContactSection() {
                             }, 1000)
                           }}
                           disabled={captchaLoading || captchaVerified}
-                          className={`w-6 h-6 rounded-md border transition-all flex items-center justify-center ${
+                          className="w-12 h-12 rounded-full flex items-center justify-center transition-all focus-visible:outline-brand-red focus-visible:outline-2 touch-target"
+                          aria-label="Verify you are human"
+                          aria-pressed={captchaVerified}
+                          aria-describedby={captchaError ? "captcha-error" : undefined}
+                        >
+                          <div className={`w-6 h-6 rounded-md border transition-all flex items-center justify-center ${
                             captchaVerified 
                               ? 'bg-emerald-500 border-emerald-500 text-white' 
                               : 'border-chocolate/30 hover:border-brand-red bg-white'
-                          }`}
-                          aria-label="Verify you are human"
-                          aria-pressed={captchaVerified}
-                        >
-                          {captchaLoading ? (
-                            <div className="w-3 h-3 border-2 border-brand-red/30 border-t-brand-red rounded-full animate-spin" />
-                          ) : captchaVerified ? (
-                            <svg className="w-3 h-3 fill-current font-bold" viewBox="0 0 20 20">
-                              <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                            </svg>
-                          ) : null}
+                          }`}>
+                            {captchaLoading ? (
+                              <div className="w-3 h-3 border-2 border-brand-red/30 border-t-brand-red rounded-full animate-spin" />
+                            ) : captchaVerified ? (
+                              <svg className="w-3 h-3 fill-current font-bold" viewBox="0 0 20 20">
+                                <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+                              </svg>
+                            ) : null}
+                          </div>
                         </button>
                         <span className="text-xs font-bold text-chocolate">I am not a robot</span>
                       </div>

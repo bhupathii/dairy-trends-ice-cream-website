@@ -162,7 +162,7 @@ export default function Navbar() {
             <motion.button
               whileTap={{ scale: 0.88 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-11 h-11 bg-brand-red rounded-full flex items-center justify-center text-white touch-target focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 shadow-lg"
+              className="lg:hidden w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-white touch-target focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 shadow-lg"
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-controls={isMobileMenuOpen ? 'mobile-menu' : undefined}
@@ -224,10 +224,10 @@ export default function Navbar() {
                 />
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-9 h-9 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red focus-visible:outline-brand-red"
+                  className="w-12 h-12 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red focus-visible:outline-brand-red touch-target"
                   aria-label="Close menu"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 

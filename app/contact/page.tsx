@@ -7,6 +7,9 @@ import { ArrowRight, Mail, Phone, MapPin, Clock } from 'lucide-react'
 export const metadata = {
   title: 'Contact Us | Dairy Trends Premium Ice Cream',
   description: 'Contact Dairy Trends Ice Creams for franchise inquiries, bulk orders, feedback, or custom events. Get in touch with our Gandhinagar sales team today.',
+  alternates: {
+    canonical: '/contact',
+  },
 }
 
 export default function ContactPage() {
@@ -15,13 +18,13 @@ export default function ContactPage() {
     "@type": "ContactPage",
     "name": "Contact Dairy Trends Ice Creams",
     "description": "Get in touch with the Dairy Trends team for wholesale, franchise, and event support.",
-    "url": "https://dairytrends.in/contact",
+    "url": "https://example.com/contact",
     "publisher": {
       "@type": "Organization",
       "name": "Dairy Trends Editorial Team",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://dairytrends.in/images/dairy-trends-logo.png"
+        "url": "https://example.com/images/dairy-trends-logo.png"
       }
     },
     "author": {
@@ -33,7 +36,7 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="min-h-screen bg-cream-light text-chocolate flex flex-col">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-cream-light text-chocolate flex flex-col focus:outline-none">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

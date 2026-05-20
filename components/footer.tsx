@@ -97,11 +97,11 @@ export default function Footer() {
                   role="listitem"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.92 }}
-                  className={`w-10 h-10 bg-white/10 ${social.color} rounded-full flex items-center justify-center transition-all duration-200 focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 touch-target border border-white/10 hover:border-transparent`}
+                  className={`w-12 h-12 bg-white/10 ${social.color} rounded-full flex items-center justify-center transition-all duration-200 focus-visible:outline-white focus-visible:outline-2 focus-visible:outline-offset-2 touch-target border border-white/10 hover:border-transparent`}
                   aria-label={`Visit our ${social.label} page`}
                   rel="noopener noreferrer"
                 >
-                  <social.icon className="w-4 h-4 text-white" aria-hidden="true" />
+                  <social.icon className="w-5 h-5 text-white" aria-hidden="true" />
                 </motion.a>
               ))}
             </div>
@@ -156,7 +156,7 @@ export default function Footer() {
                   <Phone className="w-4 h-4 text-brand-red-light" />
                 </div>
                 <div>
-                  <p className="text-white/40 text-[10px] font-black uppercase tracking-wide">Call Us (Office)</p>
+                  <p className="text-white/65 text-[10px] font-black uppercase tracking-wide">Call Us (Office)</p>
                   <a
                     href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
                     className="text-white hover:text-golden text-sm transition-colors focus-visible:outline-white focus-visible:outline-2 rounded font-bold"
@@ -170,7 +170,7 @@ export default function Footer() {
                   <Mail className="w-4 h-4 text-brand-red-light" />
                 </div>
                 <div>
-                  <p className="text-white/40 text-[10px] font-black uppercase tracking-wide">Email Us</p>
+                  <p className="text-white/65 text-[10px] font-black uppercase tracking-wide">Email Us</p>
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className="text-white hover:text-golden text-sm transition-colors focus-visible:outline-white focus-visible:outline-2 rounded break-all font-bold"
@@ -184,7 +184,7 @@ export default function Footer() {
                   <MapPin className="w-4 h-4 text-brand-red-light" />
                 </div>
                 <div>
-                  <p className="text-white/40 text-[10px] font-black uppercase tracking-wide">Factory Address</p>
+                  <p className="text-white/65 text-[10px] font-black uppercase tracking-wide">Factory Address</p>
                   <p className="text-white/80 text-xs leading-relaxed font-semibold">{contactInfo.address}</p>
                 </div>
               </li>
@@ -194,19 +194,19 @@ export default function Footer() {
 
         {/* Divider + bottom bar */}
         <div className="border-t border-white/8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-xs font-bold">
+          <p className="text-white/65 text-xs font-bold">
             &copy; {currentYear} Dairy Trends Ice Creams (Pradhara Dairy Pvt Ltd). All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-xs font-bold">
             <a
               href="/privacy-policy"
-              className="text-white/40 hover:text-white/70 transition-colors focus-visible:outline-white focus-visible:outline-2 rounded"
+              className="text-white/65 hover:text-white/90 transition-colors focus-visible:outline-white focus-visible:outline-2 rounded"
             >
               Privacy Policy
             </a>
             <a
               href="#"
-              className="text-white/40 hover:text-white/70 transition-colors focus-visible:outline-white focus-visible:outline-2 rounded"
+              className="text-white/65 hover:text-white/90 transition-colors focus-visible:outline-white focus-visible:outline-2 rounded"
             >
               Terms of Service
             </a>

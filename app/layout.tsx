@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: 'Dairy Trends Ice Creams | Taste the Trend of Happiness',
   description: 'Fresh, creamy, and delicious ice creams made to bring joy in every scoop. Premium quality ice cream for families, celebrations, and sweet moments.',
   keywords: ['ice cream', 'dairy', 'frozen desserts', 'ice cream cones', 'family packs', 'sundaes'],
-  metadataBase: new URL('https://dairytrends.in'),
+  metadataBase: new URL('https://example.com'),
   alternates: {
     canonical: '/',
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Dairy Trends Ice Creams | Taste the Trend of Happiness',
     description: 'Fresh, creamy, and delicious ice creams made to bring joy in every scoop. Premium quality ice cream for families, celebrations, and sweet moments.',
-    url: 'https://dairytrends.in',
+    url: 'https://example.com',
     siteName: 'Dairy Trends Ice Creams',
     locale: 'en_IN',
     type: 'website',
@@ -66,9 +66,7 @@ export default function RootLayout({
         <a href="#main-content" className="visually-hidden focus-visible:not-sr-only focus-visible:absolute focus-visible:top-4 focus-visible:left-4 focus-visible:z-[100] focus-visible:bg-brand-red focus-visible:text-white focus-visible:p-3 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/40 shadow-lg font-medium">
           Skip to main content
         </a>
-        <div id="main-content">
-          {children}
-        </div>
+        {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

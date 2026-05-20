@@ -425,21 +425,6 @@ export const testimonials: Testimonial[] = [
   }
 ]
 
-export const galleryImages = [
-  { id: '1', src: '/ice-cream images/DSC08836 Medium.png', alt: 'Red Velvet Cone' },
-  { id: '2', src: '/ice-cream images/DSC08860 Medium.png', alt: 'Cookies & Cream Cone' },
-  { id: '3', src: '/ice-cream images/DSC08895 Medium.png', alt: 'Double Chocolate Cone' },
-  { id: '4', src: '/ice-cream images/DSC08470 Medium.png', alt: 'Caramel Sundae Cup' },
-  { id: '5', src: '/ice-cream images/DSC09262 Medium.png', alt: 'Kashmiri Kulfi Tub' },
-  { id: '6', src: '/ice-cream images/DSC08562 Medium.png', alt: 'Nutty Delight Cone' },
-  { id: '7', src: '/ice-cream images/DSC08771 Medium.png', alt: 'Royal Rajbhog Scoop' },
-  { id: '8', src: '/ice-cream images/DSC09204 Medium.png', alt: 'Traditional Matka Kulfi' },
-  { id: '9', src: '/ice-cream images/DSC09384 Medium.png', alt: 'Premium Cassata Slice' },
-  { id: '10', src: '/ice-cream images/DSC08970 Medium.png', alt: 'Chocolate Fudge Sundae' },
-  { id: '11', src: '/ice-cream images/DSC09381 Medium.png', alt: 'Vanilla Ice Cream Sandwich' },
-  { id: '12', src: '/ice-cream images/DSC08517 Medium.png', alt: 'Mango Sundae Cup' },
-]
-
 export const features = [
   { icon: 'Sparkles', title: 'Rich Creamy Taste', description: 'Made with 100% fresh, premium milk' },
   { icon: 'Shield', title: 'Hygienic Preparation', description: 'FSSAI certified clean automated production' },
@@ -462,32 +447,3 @@ export const contactInfo = {
   email: 'info@dairytrends.in',
   address: 'Pradhara Dairy Private Limited, Survey No. 1-29, Penjerla Village, Kothur Mandal, Rangareddy District, Telangana - 509228'
 }
-
-export interface Offer {
-  id: string
-  title: string
-  description: string
-  image: string
-  discount: string
-  badge: string
-}
-
-export const offers: Offer[] = [
-  {
-    id: '1',
-    title: 'Bulk Celebration Offer',
-    description: 'Get special distributor pricing on bulk orders of family tubs and cups for weddings or events.',
-    image: '/ice-cream images/DSC08771 Medium.png',
-    discount: 'Special Rate',
-    badge: 'Bulk Offer',
-  },
-  {
-    id: '2',
-    title: 'Sundae Box Deal',
-    description: 'Try all our popular sundae cups (Mango, Caramel, Chocolate Fudge) with our seasonal bundles.',
-    image: '/ice-cream images/DSC08470 Medium.png',
-    discount: 'Combo Deal',
-    badge: 'Seasonal Combo',
-  },
-]
-

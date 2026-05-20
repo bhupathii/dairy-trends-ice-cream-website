@@ -13,7 +13,7 @@ export const metadata = {
   openGraph: {
     title: 'Our Products | Dairy Trends Ice Creams',
     description: 'Explore the full range of Dairy Trends premium ice creams: cones, cups, family tubs, traditional kulfi, and cassatas made with 100% fresh milk.',
-    url: 'https://dairytrends.in/products',
+    url: 'https://example.com/products',
     images: [
       {
         url: '/images/dairy-trends-logo.png',
@@ -37,13 +37,13 @@ export default function ProductsPage() {
     "@type": "CollectionPage",
     "name": "Dairy Trends Ice Creams Product Catalog",
     "description": "Explore the full range of Dairy Trends premium ice creams including cones, cups, family tubs, and kulfis.",
-    "url": "https://dairytrends.in/products",
+    "url": "https://example.com/products",
     "publisher": {
       "@type": "Organization",
       "name": "Dairy Trends Editorial Team",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://dairytrends.in/images/dairy-trends-logo.png"
+        "url": "https://example.com/images/dairy-trends-logo.png"
       }
     },
     "author": {
@@ -55,7 +55,7 @@ export default function ProductsPage() {
   }
 
   return (
-    <main className="overflow-x-hidden pt-20 bg-white">
+    <main id="main-content" tabIndex={-1} className="overflow-x-hidden pt-20 bg-white focus:outline-none">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

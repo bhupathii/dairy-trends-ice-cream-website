@@ -22,7 +22,11 @@ export default function FlavoursSection() {
   }
 
   return (
-    <section id="flavours" className="relative py-20 lg:py-28 overflow-hidden bg-white">
+    <section id="flavours" className="relative py-24 lg:py-32 overflow-hidden bg-white">
+      {/* Background Decorative Blobs */}
+      <div className="absolute top-20 right-10 w-[450px] h-[450px] bg-brand-red/5 rounded-full blur-[100px] pointer-events-none translate-x-1/4" aria-hidden="true" />
+      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-golden/5 rounded-full blur-[120px] pointer-events-none -translate-x-1/4" aria-hidden="true" />
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Header */}
         <motion.div
@@ -31,21 +35,13 @@ export default function FlavoursSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 lg:mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.2 }}
-            className="inline-block bg-brand-red/10 text-brand-red px-4 py-2 rounded-full text-sm font-bold mb-4"
-          >
-            Popular Choices
-          </motion.span>
           <h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4"
+            className="text-4xl sm:text-5xl lg:text-6xl font-black text-chocolate mb-4 tracking-tight"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Popular <span className="text-brand-red">Dairy Trends</span> Picks
           </h2>
-          <p className="text-chocolate/70 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-chocolate/70 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
             Explore our handcrafted, signature ice cream flavours made with fresh milk 
             and premium ingredients that bring pure happiness in every scoop.
           </p>
@@ -59,33 +55,30 @@ export default function FlavoursSection() {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -6 }}
-              className="group cursor-pointer"
+              whileHover={{ y: -8 }}
+              className="group cursor-pointer h-full"
               onClick={handleScrollToProducts}
             >
-              <div className="product-card rounded-3xl overflow-hidden shadow-lg border border-chocolate/5 transition-all duration-300">
+              <div className="product-card rounded-[32px] overflow-hidden shadow-md hover:shadow-2xl border border-chocolate/5 hover:border-brand-red/30 transition-all duration-500 flex flex-col h-full bg-white relative">
+                {/* Subtle top border accent on hover */}
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-brand-red scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left z-20" />
+                
                 {/* Image Container */}
-                <div className="relative h-48 overflow-hidden bg-cream">
+                <div className="relative h-52 overflow-hidden bg-cream shrink-0">
                   <Image
                     src={flavour.image}
                     alt={flavour.name}
                     width={400}
                     height={300}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 scale-100 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-chocolate/20 via-transparent to-transparent pointer-events-none opacity-60" />
                 </div>
 
                 {/* Content */}
-                <div className="p-5 bg-white">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-extrabold text-chocolate text-lg group-hover:text-brand-red transition-colors">{flavour.name}</h3>
-                    <span 
-                      className="w-4 h-4 rounded-full border-2 border-white shadow-md flex-shrink-0"
-                      style={{ backgroundColor: flavour.color }}
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <p className="text-chocolate/60 text-sm mb-1 line-clamp-2 leading-relaxed">{flavour.description}</p>
+                <div className="p-6 bg-white flex flex-col flex-grow">
+                  <h3 className="font-extrabold text-chocolate text-lg lg:text-xl group-hover:text-brand-red transition-colors duration-300 mb-2">{flavour.name}</h3>
+                  <p className="text-chocolate/65 text-sm lg:text-base leading-relaxed line-clamp-2">{flavour.description}</p>
                 </div>
               </div>
             </motion.div>
@@ -93,7 +86,7 @@ export default function FlavoursSection() {
         </div>
 
         {/* Mobile Swiper */}
-        <div className="lg:hidden">
+        <div className="lg:hidden pb-12 overflow-hidden">
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={16}
@@ -105,15 +98,15 @@ export default function FlavoursSection() {
               480: { slidesPerView: 1.5 },
               640: { slidesPerView: 2.2 }
             }}
-            className="pb-12"
+            className="pt-4 pb-12 px-4 flavours-swiper -mx-4"
           >
             {flavours.map((flavour) => (
-               <SwiperSlide key={flavour.id}>
+              <SwiperSlide key={flavour.id}>
                 <div 
-                  className="glass rounded-3xl overflow-hidden shadow-lg h-full flex flex-col cursor-pointer"
+                  className="glass rounded-[32px] overflow-hidden shadow-md h-full flex flex-col cursor-pointer border border-chocolate/5 bg-white"
                   onClick={handleScrollToProducts}
                 >
-                  <div className="relative h-44 overflow-hidden shrink-0 bg-cream">
+                  <div className="relative h-48 overflow-hidden shrink-0 bg-cream">
                     <Image
                       src={flavour.image}
                       alt={flavour.name}
@@ -121,17 +114,11 @@ export default function FlavoursSection() {
                       height={300}
                       className="w-full h-full object-cover"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-chocolate/20 via-transparent to-transparent pointer-events-none opacity-50" />
                   </div>
-                  <div className="p-4 bg-white flex flex-col grow">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-chocolate">{flavour.name}</h3>
-                      <span 
-                        className="w-3 h-3 rounded-full border-2 border-white shadow-md"
-                        style={{ backgroundColor: flavour.color }}
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <p className="text-chocolate/60 text-sm line-clamp-2 leading-relaxed">{flavour.description}</p>
+                  <div className="p-5 bg-white flex flex-col grow">
+                    <h3 className="font-extrabold text-chocolate text-lg mb-2">{flavour.name}</h3>
+                    <p className="text-chocolate/65 text-sm leading-relaxed line-clamp-2">{flavour.description}</p>
                   </div>
                 </div>
               </SwiperSlide>
@@ -149,14 +136,28 @@ export default function FlavoursSection() {
           <motion.button
             type="button"
             onClick={handleScrollToProducts}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-brand-red hover:bg-brand-red-dark text-white px-8 py-3.5 rounded-full font-bold shadow-lg btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target"
+            className="bg-brand-red hover:bg-brand-red-dark text-white px-8 py-4 rounded-2xl font-extrabold shadow-lg hover:shadow-brand-red/20 transition-all duration-300 transform btn-glow focus-visible:outline-brand-red focus-visible:outline-2 touch-target"
           >
             View Full Menu Range
           </motion.button>
         </motion.div>
       </div>
+
+      {/* Global Swiper styles */}
+      <style jsx global>{`
+        .flavours-swiper .swiper-wrapper {
+          align-items: stretch;
+        }
+        .flavours-swiper .swiper-slide {
+          height: auto !important;
+          display: flex;
+        }
+        .flavours-swiper .swiper-pagination-bullet-active {
+          background-color: var(--brand-red) !important;
+        }
+      `}</style>
     </section>
   )
 }

@@ -110,14 +110,6 @@ export default function AboutSection({ priority = false }: { priority?: boolean 
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
-              className="inline-block bg-brand-red/10 text-brand-red px-4 py-2 rounded-full text-sm font-semibold mb-4"
-            >
-              Our Story
-            </motion.span>
 
             <h2 
               className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-6"

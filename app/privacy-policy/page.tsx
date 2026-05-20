@@ -10,7 +10,7 @@ export const metadata = {
   openGraph: {
     title: 'Privacy Policy | Dairy Trends Ice Creams',
     description: 'Learn how Dairy Trends Ice Creams collects, uses, and protects your information when you visit our website, order in bulk, or contact us.',
-    url: 'https://dairytrends.in/privacy-policy',
+    url: 'https://example.com/privacy-policy',
     images: [
       {
         url: '/images/dairy-trends-logo.png',
@@ -34,13 +34,13 @@ export default function PrivacyPolicyPage() {
     "@type": "WebPage",
     "name": "Privacy Policy | Dairy Trends Ice Creams",
     "description": "Learn how Dairy Trends Ice Creams collects, uses, and protects your information.",
-    "url": "https://dairytrends.in/privacy-policy",
+    "url": "https://example.com/privacy-policy",
     "publisher": {
       "@type": "Organization",
       "name": "Dairy Trends Editorial Team",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://dairytrends.in/images/dairy-trends-logo.png"
+        "url": "https://example.com/images/dairy-trends-logo.png"
       }
     },
     "author": {
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
   }
 
   return (
-    <main className="overflow-x-hidden min-h-screen bg-cream/20 pt-28">
+    <main id="main-content" tabIndex={-1} className="overflow-x-hidden min-h-screen bg-cream/20 pt-28 focus:outline-none">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

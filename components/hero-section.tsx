@@ -82,14 +82,6 @@ export default function HeroSection() {
             animate="visible"
             className="text-center lg:text-left order-2 lg:order-1"
           >
-            {/* Brand Accent Tag */}
-            <motion.div
-              variants={itemVariants}
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-brand-red/10 text-brand-red border border-brand-red/10 text-xs font-bold uppercase tracking-wider mb-5"
-            >
-              <CheckCircle className="w-3.5 h-3.5" />
-              100% Pure Dairy Goodness
-            </motion.div>
 
             {/* Headline */}
             <motion.h1

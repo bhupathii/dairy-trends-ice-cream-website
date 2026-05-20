@@ -7,6 +7,9 @@ import { ArrowRight, Star, Heart, Award } from 'lucide-react'
 export const metadata = {
   title: 'About Us | Dairy Trends Premium Ice Cream',
   description: 'Learn about Dairy Trends Ice Creams, our history of trust, quality ingredients, and commitment to delivering the creamiest local treats in India.',
+  alternates: {
+    canonical: '/about',
+  },
 }
 
 export default function AboutPage() {
@@ -15,13 +18,13 @@ export default function AboutPage() {
     "@type": "AboutPage",
     "name": "About Dairy Trends Ice Creams",
     "description": "Learn about Dairy Trends Ice Creams history, quality standards, and franchise network.",
-    "url": "https://dairytrends.in/about",
+    "url": "https://example.com/about",
     "publisher": {
       "@type": "Organization",
       "name": "Dairy Trends Editorial Team",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://dairytrends.in/images/dairy-trends-logo.png"
+        "url": "https://example.com/images/dairy-trends-logo.png"
       }
     },
     "author": {
@@ -33,7 +36,7 @@ export default function AboutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-cream-light text-chocolate flex flex-col">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-cream-light text-chocolate flex flex-col focus:outline-none">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -208,14 +208,6 @@
     background: #FFFFFF;
   }
 
-  /* --- Section Pill Badge --- */
-  .section-badge {
-    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold;
-    background: linear-gradient(135deg, rgba(215,25,32,0.1), rgba(255,204,0,0.15));
-    color: var(--brand-red-dark);
-    border: 1px solid rgba(215, 25, 32, 0.15);
-    box-shadow: 0 2px 8px rgba(215, 25, 32, 0.08);
-  }
 
   /* --- Product Card --- */
   .product-card {
