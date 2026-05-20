@@ -82,19 +82,22 @@ export default function FlavoursSection() {
         </div>
 
         {/* Mobile Swiper */}
-        <div className="lg:hidden pb-12 overflow-hidden">
+        <div className="lg:hidden overflow-hidden">
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={16}
             slidesPerView={1.2}
             centeredSlides
             autoplay={{ delay: 3000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
+            pagination={{
+              clickable: true,
+              el: '.flavours-swiper-pagination'
+            }}
             breakpoints={{
               480: { slidesPerView: 1.5 },
               640: { slidesPerView: 2.2 }
             }}
-            className="pt-4 pb-12 px-4 flavours-swiper -mx-4"
+            className="pt-4 px-4 flavours-swiper -mx-4"
           >
             {flavours.map((flavour) => (
               <SwiperSlide key={flavour.id}>
@@ -120,6 +123,8 @@ export default function FlavoursSection() {
               </SwiperSlide>
             ))}
           </Swiper>
+          {/* Custom pagination container below the swiper slider */}
+          <div className="swiper-pagination flavours-swiper-pagination !relative !bottom-0 mt-6" />
         </div>
 
         {/* View All Button */}
@@ -150,7 +155,7 @@ export default function FlavoursSection() {
           height: auto !important;
           display: flex;
         }
-        .flavours-swiper .swiper-pagination-bullet-active {
+        .flavours-swiper-pagination .swiper-pagination-bullet-active {
           background-color: var(--brand-red) !important;
         }
       `}</style>
