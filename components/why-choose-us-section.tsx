@@ -20,7 +20,7 @@ const features = [
   { 
     lucide: IceCream2,
     title: 'Many Flavour Choices', 
-    description: '20+ unique flavours to satisfy every taste',
+    description: '27+ unique flavours to satisfy every taste',
     accent: 'text-chocolate'
   },
   { 
@@ -62,7 +62,7 @@ export default function WhyChooseUsSection() {
           </span>
           <h2 
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-3"
-            style={{ fontFamily: 'var(--font-baloo)' }}
+            style={{ fontFamily: 'var(--font-display)' }}
           >
             What Makes Us <span className="text-brand-red">Special</span>
           </h2>
@@ -113,6 +113,7 @@ export default function WhyChooseUsSection() {
             <p className="text-chocolate/75 text-sm">Ready to partner with us?</p>
             <motion.button
               type="button"
+              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               className="bg-brand-red text-white px-5 py-2 rounded-full text-sm font-semibold btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"

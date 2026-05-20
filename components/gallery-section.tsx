@@ -39,12 +39,12 @@ export default function GallerySection() {
           </motion.span>
           <h2 
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4"
-            style={{ fontFamily: 'var(--font-baloo)' }}
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            Sweet <span className="text-brand-red">Moments</span>
+            Sweet <span className="text-brand-red">Moments Gallery</span>
           </h2>
-          <p className="text-chocolate/70 max-w-2xl mx-auto text-lg">
-            A visual feast of our delicious creations. Every scoop tells a story.
+          <p className="text-chocolate/70 max-w-2xl mx-auto text-lg leading-relaxed">
+            A premium visual tour of our delicious dairy products and authentic scoops. Spot your favorite dessert!
           </p>
         </motion.div>
 

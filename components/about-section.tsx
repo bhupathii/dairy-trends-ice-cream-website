@@ -22,13 +22,13 @@ const aboutFeatures = [
     icon: ShieldCheck, 
     title: 'Hygienic Preparation', 
     description: 'FSSAI certified production',
-    color: 'bg-green-500'
+    color: 'bg-brand-red-dark'
   },
   { 
     icon: Heart, 
     title: 'Loved by Families', 
     description: 'Trusted by thousands of families',
-    color: 'bg-pink'
+    color: 'bg-chocolate-mid'
   }
 ]
 
@@ -37,7 +37,7 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="about" className="relative py-20 lg:py-28 overflow-hidden bg-white">
+    <section id="about" className="relative py-20 lg:py-28 overflow-hidden bg-cream/20">
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -120,7 +120,7 @@ export default function AboutSection() {
 
             <h2 
               className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-6"
-              style={{ fontFamily: 'var(--font-baloo)' }}
+              style={{ fontFamily: 'var(--font-display)' }}
             >
               About <span className="text-brand-red">Dairy Trends</span>
             </h2>

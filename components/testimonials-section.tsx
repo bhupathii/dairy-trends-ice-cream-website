@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Star, User } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay } from 'swiper/modules'
+import { Autoplay, Pagination } from 'swiper/modules'
 import { testimonials } from '@/lib/data'
 
 import 'swiper/css'
@@ -16,9 +16,8 @@ export default function TestimonialsSection() {
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden bg-white" aria-labelledby="testimonials-heading">
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
-
+        
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -37,12 +36,12 @@ export default function TestimonialsSection() {
           <h2
             id="testimonials-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4 tracking-tight"
-            style={{ fontFamily: 'var(--font-baloo)' }}
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            What Our <span className="text-brand-red">Customers</span> Say
+            Partner & <span className="text-brand-red">Customer</span> Feedback
           </h2>
-          <p className="text-chocolate/60 max-w-xl text-base sm:text-lg leading-relaxed">
-            Don&apos;t just take our word for it — here&apos;s what our happy customers have to say.
+          <p className="text-chocolate/75 max-w-2xl text-base sm:text-lg leading-relaxed">
+            Read how our retail partners, local distributors, and families in South India experience the rich, milky creaminess of Dairy Trends Ice Creams.
           </p>
         </motion.div>
 
@@ -53,23 +52,24 @@ export default function TestimonialsSection() {
           transition={{ delay: 0.25, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           <Swiper
-            modules={[Autoplay]}
-            spaceBetween={20}
+            modules={[Autoplay, Pagination]}
+            spaceBetween={24}
             slidesPerView={1}
             loop={true}
-            speed={12000}
-            autoplay={{ delay: 0, disableOnInteraction: false }}
-            allowTouchMove={false}
+            speed={800}
+            autoplay={{ delay: 4500, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            allowTouchMove={true}
             breakpoints={{
               640: { slidesPerView: 2, spaceBetween: 20 },
               1024: { slidesPerView: 3, spaceBetween: 24 },
             }}
             className="pt-6 pb-16 px-4 testimonials-swiper -mx-4"
           >
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.id} className="h-auto">
                 <div
-                  className="product-card rounded-3xl p-6 lg:p-7 w-full h-full flex flex-col"
+                  className="product-card rounded-3xl p-6 lg:p-7 w-full h-full flex flex-col bg-cream/30 border border-chocolate/5 hover:border-brand-red/20 transition-all duration-300 shadow-sm"
                 >
                   {/* Stars */}
                   <div
@@ -86,7 +86,7 @@ export default function TestimonialsSection() {
                   </div>
 
                   {/* Quote */}
-                  <p className="text-chocolate/75 text-sm leading-relaxed mb-6 flex-grow italic">
+                  <p className="text-chocolate/80 text-sm leading-relaxed mb-6 flex-grow italic">
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
 
@@ -97,7 +97,7 @@ export default function TestimonialsSection() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-chocolate leading-tight">{testimonial.name}</p>
-                      <p className="text-xs text-chocolate/50 mt-0.5">{testimonial.location}</p>
+                      <p className="text-xs text-chocolate/55 mt-0.5 font-semibold">{testimonial.location}</p>
                     </div>
                   </div>
                 </div>
@@ -110,17 +110,14 @@ export default function TestimonialsSection() {
       {/* Global Swiper styles */}
       <style jsx global>{`
         .testimonials-swiper .swiper-wrapper {
-          transition-timing-function: linear !important;
           align-items: stretch;
         }
         .testimonials-swiper .swiper-slide {
           height: auto !important;
           display: flex;
         }
-        .testimonials-swiper .product-card:hover {
-          transform: none !important;
-          box-shadow: 0 2px 8px rgba(61, 35, 20, 0.04), 0 8px 24px rgba(61, 35, 20, 0.06) !important;
-          border-color: rgba(61, 35, 20, 0.07) !important;
+        .testimonials-swiper .swiper-pagination-bullet-active {
+          background-color: var(--brand-red) !important;
         }
       `}</style>
     </section>

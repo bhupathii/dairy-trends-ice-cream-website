@@ -18,8 +18,17 @@ interface ProductCardProps {
   product: typeof products[0]
   index: number
   isInView: boolean
-  /** When rendered inside the mobile scroll rail, disable layout animation */
   static?: boolean
+}
+
+const categoryEmojis: Record<string, string> = {
+  'All': '✨',
+  'Cones': '🍦',
+  'Cups': '🍨',
+  'Tubs': '🍧',
+  'Kulfis & Sticks': '🍢',
+  'Sundaes': '🍮',
+  'Specialities': '🍰'
 }
 
 function ProductCard({ product, index, isInView, static: isStatic }: ProductCardProps) {
@@ -28,23 +37,23 @@ function ProductCard({ product, index, isInView, static: isStatic }: ProductCard
   return (
     <motion.article
       layout={!isStatic}
-      initial={{ opacity: 0, y: isStatic ? 0 : 40, scale: isStatic ? 1 : 0.94 }}
+      initial={{ opacity: 0, y: isStatic ? 0 : 35, scale: isStatic ? 1 : 0.95 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      exit={isStatic ? undefined : { opacity: 0, scale: 0.92, transition: { duration: 0.18 } }}
-      transition={{ delay: index * 0.04, duration: 0.45, ease: [0.16, 1, 0.3, 1] as never }}
+      exit={isStatic ? undefined : { opacity: 0, scale: 0.92, transition: { duration: 0.2 } }}
+      transition={{ delay: index * 0.03, duration: 0.4, ease: 'easeOut' }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="product-card rounded-3xl overflow-hidden flex flex-col h-full group"
+      className="product-card rounded-3xl overflow-hidden flex flex-col h-full group bg-white border border-chocolate/5 hover:border-brand-red/20 shadow-sm hover:shadow-xl transition-all duration-300"
       aria-label={product.name}
     >
-      {/* Image */}
+      {/* Visual Image container with brand accent */}
       <div
-        className="relative overflow-hidden bg-gradient-to-br from-cream to-pink/30 shrink-0"
-        style={{ height: '200px' }}
+        className="relative overflow-hidden bg-cream-deep/40 shrink-0"
+        style={{ height: '210px' }}
       >
         <motion.div
-          animate={{ scale: isHovered ? 1.08 : 1 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] as never }}
+          animate={{ scale: isHovered ? 1.06 : 1 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
           className="absolute inset-0"
         >
           <Image
@@ -56,39 +65,40 @@ function ProductCard({ product, index, isInView, static: isStatic }: ProductCard
           />
         </motion.div>
 
-        {/* Bottom gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+        {/* Soft layout shadow */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
 
-        {/* Badge */}
+        {/* Brand Badge */}
         {product.badge && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.7 }}
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="absolute top-3 left-3 z-10 flex items-center gap-1 bg-golden text-chocolate text-[11px] font-bold px-2.5 py-1 rounded-full shadow-md"
+            className="absolute top-4 left-4 z-10 flex items-center gap-1 bg-brand-red text-white text-[10px] uppercase font-black px-2.5 py-1.5 rounded-full shadow-md tracking-wider"
           >
             <Tag className="w-2.5 h-2.5" aria-hidden="true" />
             {product.badge}
           </motion.div>
         )}
 
-        {/* Size pill */}
-        <div className="absolute bottom-3 right-3 z-10 bg-white/90 backdrop-blur-sm text-chocolate/70 text-[11px] font-semibold px-2.5 py-1 rounded-full">
+        {/* Size Badge */}
+        <div className="absolute bottom-4 right-4 z-10 bg-white/95 backdrop-blur-sm text-chocolate text-xs font-black px-3 py-1 rounded-xl shadow-sm border border-chocolate/5">
           {product.size}
         </div>
       </div>
 
-      {/* Card body */}
+      {/* Body Details */}
       <div className="p-5 flex flex-col flex-grow">
-        <div className="mb-1">
-          <span className="text-[11px] font-semibold text-brand-red/70 uppercase tracking-widest">
-            {product.category}
+        <div className="mb-2.5">
+          <span className="text-[10px] font-black text-brand-red-dark uppercase tracking-widest bg-brand-red/5 px-2.5 py-1 rounded-md border border-brand-red/10">
+            {categoryEmojis[product.category] || '🍦'} {product.category}
           </span>
         </div>
-        <h3 className="font-bold text-chocolate text-lg leading-snug mb-2">{product.name}</h3>
-        <p className="text-chocolate/55 text-sm leading-relaxed mb-5 flex-grow line-clamp-2">
+        <h3 className="font-extrabold text-chocolate text-lg leading-snug mb-2 group-hover:text-brand-red transition-colors">
+          {product.name}
+        </h3>
+        <p className="text-chocolate/65 text-sm leading-relaxed mb-0 flex-grow line-clamp-2">
           {product.description}
         </p>
-
       </div>
     </motion.article>
   )
@@ -107,15 +117,14 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
   const displayedProducts = limit ? filteredProducts.slice(0, limit) : filteredProducts
 
   return (
-    <section id="products" className={cn("relative py-24 lg:py-32 overflow-hidden bg-white", className)}>
-
-      {/* ── Header (full bleed container) ── */}
+    <section id="products" className={cn("relative py-24 lg:py-32 overflow-hidden bg-cream/40", className)}>
+      {/* Header Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as never }}
-          className="text-center mb-10 lg:mb-14"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -126,82 +135,57 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
             Our Products
           </motion.div>
           <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mb-4 tracking-tight"
-            style={{ fontFamily: 'var(--font-baloo)' }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-chocolate mb-4 tracking-tight"
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            Explore Our <span className="text-brand-red">Range</span>
+            Explore Our <span className="text-brand-red">Sweet Range</span>
           </h2>
-          <p className="text-chocolate/60 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
-            From classic cups to indulgent sundaes — the perfect frozen treat for every moment.
+          <p className="text-chocolate/70 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
+            From classic cups to rich waffle cones and traditional kulfis — discover our 27+ premium frozen treats crafted for every sweet craving.
           </p>
         </motion.div>
 
-        {/* ── Category Filter ── */}
-        {/*
-          Mobile: horizontally scrollable, no wrap, fade-out edges hint at overflow
-          Desktop: wrapped, centred
-        */}
+        {/* Visual Category Filter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.25, duration: 0.5 }}
-          className="relative mb-10 lg:mb-14"
+          className="relative mb-12"
         >
-          {/* Left / right fade hints on mobile */}
-          <div
-            className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-background to-transparent z-10 sm:hidden"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-background to-transparent z-10 sm:hidden"
-            aria-hidden="true"
-          />
+          {/* Fades for mobile scroll */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-cream/40 to-transparent z-10 sm:hidden" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-cream/40 to-transparent z-10 sm:hidden" />
 
           <div
             role="group"
             aria-label="Filter products by category"
-            className={`
-              /* Mobile: single-row horizontal scroll */
-              flex gap-2 overflow-x-auto sm:overflow-x-visible no-scrollbar
-              snap-x snap-mandatory
-              px-1 sm:px-0
-              /* Desktop: wrap + centre */
-              sm:flex-wrap sm:justify-center
-            `}
+            className="flex gap-2 overflow-x-auto sm:overflow-x-visible no-scrollbar snap-x snap-mandatory px-1 sm:px-0 sm:flex-wrap sm:justify-center"
           >
             {categories.map((category) => (
               <motion.button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className={`
                   snap-start shrink-0 flex items-center gap-2
-                  px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
-                  transition-all duration-250 focus-visible:outline-brand-red focus-visible:outline-2
+                  px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap
+                  transition-all duration-200 focus-visible:outline-brand-red focus-visible:outline-2
                   ${
                     activeCategory === category
-                      ? 'bg-brand-red text-white shadow-md shadow-brand-red/25'
-                      : 'bg-white/70 text-chocolate/70 hover:text-chocolate border border-chocolate/10 hover:border-brand-red/20 hover:bg-white'
+                      ? 'bg-brand-red text-white shadow-md shadow-brand-red/25 border-2 border-transparent'
+                      : 'bg-white text-chocolate/75 hover:text-chocolate border-2 border-chocolate/5 hover:border-brand-red/35'
                   }
                 `}
                 aria-pressed={activeCategory === category}
               >
-                {activeCategory === category && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" aria-hidden="true" />
-                )}
-                {category}
+                <span>{categoryEmojis[category] || '🍦'}</span>
+                <span>{category}</span>
               </motion.button>
             ))}
           </div>
         </motion.div>
       </div>
-
-      {/* ── Products ── */}
-      {/*
-        Mobile  → horizontal snap-scroll rail (cards are fixed width, full bleed to screen edges)
-        sm+     → standard responsive grid inside the max-w container
-      */}
 
       {/* MOBILE scroll rail */}
       <div className="sm:hidden relative">
@@ -211,15 +195,12 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.3 }}
-            className={`
-              flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar
-              px-4 pb-4 pt-1
-            `}
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar px-4 pb-6 pt-1"
           >
             {displayedProducts.map((product, index) => (
               <div
                 key={product.name}
-                className="snap-start shrink-0 w-[72vw] max-w-[280px]"
+                className="snap-start shrink-0 w-[78vw] max-w-[290px]"
               >
                 <ProductCard
                   product={product}
@@ -229,7 +210,6 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
                 />
               </div>
             ))}
-            {/* Trailing spacer so the last card doesn't sit flush to the edge */}
             <div className="shrink-0 w-4" aria-hidden="true" />
           </motion.div>
         ) : (
@@ -242,25 +222,22 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
           </motion.div>
         )}
 
-        {/* Swipe hint dots — show only first load */}
-        <div className="flex justify-center gap-1.5 mt-3" aria-hidden="true">
+        {/* Page Dots indicator */}
+        <div className="flex justify-center gap-1.5 mt-2" aria-hidden="true">
           {filteredProducts.slice(0, Math.min(filteredProducts.length, 5)).map((_, i) => (
             <div
               key={i}
               className={`h-1.5 rounded-full bg-chocolate/20 ${i === 0 ? 'w-4 bg-brand-red/40' : 'w-1.5'}`}
             />
           ))}
-          {filteredProducts.length > 5 && (
-            <div className="h-1.5 w-1.5 rounded-full bg-chocolate/10" />
-          )}
         </div>
       </div>
 
-      {/* DESKTOP grid — hidden on mobile */}
+      {/* DESKTOP grid */}
       <div className="hidden sm:block relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           layout
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           <AnimatePresence mode="popLayout">
             {displayedProducts.map((product, index) => (
@@ -285,10 +262,10 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
         )}
       </div>
 
-      {/* Result count & View All */}
+      {/* Counter & View All */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.p layout className="text-center text-sm text-chocolate/40 mt-6">
-          Showing {displayedProducts.length} of {filteredProducts.length} products
+        <motion.p layout className="text-center text-xs font-bold text-chocolate/50 mt-8">
+          Showing {displayedProducts.length} of {filteredProducts.length} premium products
         </motion.p>
         
         {showViewAll && filteredProducts.length > (limit || 0) && (
@@ -296,13 +273,13 @@ export default function ProductsSection({ limit = 8, showViewAll = true, classNa
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-10 flex justify-center pb-8"
+            className="mt-10 flex justify-center"
           >
             <Link
               href="/products"
-              className="inline-flex items-center justify-center gap-2 bg-white text-brand-red px-8 py-3.5 rounded-xl font-bold text-base border-2 border-brand-red/20 shadow-sm hover:border-brand-red hover:bg-brand-red/5 transition-all focus-visible:outline-brand-red focus-visible:outline-2"
+              className="inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white px-8 py-3.5 rounded-2xl font-bold text-base shadow-md btn-glow focus-visible:outline-brand-red focus-visible:outline-2"
             >
-              View All Products
+              View Full Range ({filteredProducts.length} Items)
               <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>
