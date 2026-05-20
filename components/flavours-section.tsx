@@ -54,33 +54,18 @@ export default function FlavoursSection() {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -10, scale: 1.02 }}
               className="group"
             >
-              <div className="glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+              <div className="glass rounded-3xl overflow-hidden shadow-lg transition-all duration-300">
                 {/* Image Container */}
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={flavour.image}
                     alt={flavour.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 25vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-                  
-                  {/* Hover Actions */}
-                  <div className="absolute bottom-4 left-4 right-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
-                    <motion.button
-                      type="button"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="bg-white/90 text-chocolate p-2 rounded-full focus-visible:outline-white focus-visible:outline-2 flex items-center justify-center touch-target shadow-lg"
-                      aria-label={`View details of ${flavour.name}`}
-                    >
-                      <Eye className="w-4 h-4" aria-hidden="true" />
-                    </motion.button>
-                  </div>
                 </div>
 
                 {/* Content */}

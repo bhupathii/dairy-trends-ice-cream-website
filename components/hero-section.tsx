@@ -153,10 +153,10 @@ export default function HeroSection() {
             >
               <div className="relative w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[440px] lg:h-[440px]">
                 <Image
-                  src="/ice-cream images/DSC08470 Medium.png"
-                  alt="Delicious strawberry and vanilla ice cream cone from Dairy Trends"
+                  src="/ice-cream images/homee.jpeg"
+                  alt="Caramel pouring over ice cream cup"
                   fill
-                  className="object-contain drop-shadow-2xl"
+                  className="object-cover"
                   priority
                   sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 440px"
                 />

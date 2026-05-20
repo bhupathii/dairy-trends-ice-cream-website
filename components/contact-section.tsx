@@ -172,18 +172,40 @@ export default function ContactSection() {
                 { icon: Mail, label: 'Email Us', value: contactInfo.email, href: `mailto:${contactInfo.email}` },
                 { icon: MapPin, label: 'Visit Us', value: 'See on Map', href: '#contact' }
               ].map((item, index) => (
-                <motion.a
+                <motion.div
                   key={item.label}
-                  href={item.href}
+                  onClick={() => {
+                    if (item.href.startsWith('#')) {
+                      document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' })
+                    } else if (item.href.startsWith('http')) {
+                      window.open(item.href, '_blank', 'noopener,noreferrer')
+                    } else {
+                      window.location.href = item.href
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      if (item.href.startsWith('#')) {
+                        document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' })
+                      } else if (item.href.startsWith('http')) {
+                        window.open(item.href, '_blank', 'noopener,noreferrer')
+                      } else {
+                        window.location.href = item.href
+                      }
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.3 + index * 0.1 }}
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="glass p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all group focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target block"
+                  className="cursor-pointer glass p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all group focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 touch-target block"
                   aria-label={`${item.label}: ${item.value}`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" aria-hidden="true">
+                    <div className="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shrink-0" aria-hidden="true">
                       <item.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -191,7 +213,7 @@ export default function ContactSection() {
                       <p className="font-semibold text-chocolate">{item.value}</p>
                     </div>
                   </div>
-                </motion.a>
+                </motion.div>
               ))}
             </div>
 

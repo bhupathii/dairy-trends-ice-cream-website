@@ -169,7 +169,7 @@ export const testimonials: Testimonial[] = [
     location: 'Mumbai',
     quote: 'Best creamy taste! My whole family loves Dairy Trends. The mango flavour is absolutely divine.',
     rating: 5,
-    avatar: '/ice-cream images/DSC08720 Medium.png'
+    avatar: ''
   },
   {
     id: '2',
@@ -177,7 +177,7 @@ export const testimonials: Testimonial[] = [
     location: 'Delhi',
     quote: 'Perfect for family celebrations. We ordered for my daughter\'s birthday and everyone loved it!',
     rating: 5,
-    avatar: '/ice-cream images/DSC08771 Medium.png'
+    avatar: ''
   },
   {
     id: '3',
@@ -185,7 +185,7 @@ export const testimonials: Testimonial[] = [
     location: 'Bangalore',
     quote: 'Kids loved the flavours! The cookies and cream is now their favourite treat every weekend.',
     rating: 5,
-    avatar: '/ice-cream images/DSC08795 Medium.png'
+    avatar: ''
   },
   {
     id: '4',
@@ -193,7 +193,7 @@ export const testimonials: Testimonial[] = [
     location: 'Chennai',
     quote: 'The quality and freshness is unmatched. You can taste the difference in every scoop!',
     rating: 5,
-    avatar: '/ice-cream images/DSC08822 Medium.png'
+    avatar: ''
   },
   {
     id: '5',
@@ -201,20 +201,44 @@ export const testimonials: Testimonial[] = [
     location: 'Kochi',
     quote: 'Ordered for our office party and received so many compliments. Will definitely order again!',
     rating: 5,
-    avatar: '/ice-cream images/DSC08827 Medium.png'
+    avatar: ''
+  },
+  {
+    id: '6',
+    name: 'Vikram Singh',
+    location: 'Pune',
+    quote: 'The packaging kept the ice cream perfectly frozen. Great delivery and even better taste!',
+    rating: 5,
+    avatar: ''
+  },
+  {
+    id: '7',
+    name: 'Anjali Desai',
+    location: 'Ahmedabad',
+    quote: 'I have tried many brands, but Dairy Trends is definitely the creamiest. Highly recommended.',
+    rating: 5,
+    avatar: ''
+  },
+  {
+    id: '8',
+    name: 'Rohan Mehta',
+    location: 'Surat',
+    quote: 'Amazing variety of flavors. The Kashmiri Kulfi is out of this world!',
+    rating: 5,
+    avatar: ''
   }
 ]
 
 // Gallery Images - Add more images to showcase
 export const galleryImages = [
-  { id: '1', src: '/ice-cream images/DSC08836 Medium.png', alt: 'Vanilla Ice Cream' },
-  { id: '2', src: '/ice-cream images/DSC08860 Medium.png', alt: 'Chocolate Sundae' },
-  { id: '3', src: '/ice-cream images/DSC08870 Medium.png', alt: 'Ice Cream Cone' },
-  { id: '4', src: '/ice-cream images/DSC08895 Medium.png', alt: 'Waffle Cone' },
-  { id: '5', src: '/ice-cream images/DSC08916 Medium.png', alt: 'Ice Cream Tub' },
-  { id: '6', src: '/ice-cream images/DSC08921 Medium.png', alt: 'Ice Cream Cake' },
-  { id: '7', src: '/ice-cream images/DSC08959 Medium.png', alt: 'Mango Ice Cream' },
-  { id: '8', src: '/ice-cream images/DSC08970 Medium.png', alt: 'Milkshake' },
+  { id: '1', src: '/ice-cream images/DSC08836 Medium.png', alt: 'Red Velvet Cone' },
+  { id: '2', src: '/ice-cream images/DSC08860 Medium.png', alt: 'Cookies & Cream Cone' },
+  { id: '3', src: '/ice-cream images/DSC08870 Medium.png', alt: 'Classic Choco Bar' },
+  { id: '4', src: '/ice-cream images/DSC08895 Medium.png', alt: 'Double Chocolate Cone' },
+  { id: '5', src: '/ice-cream images/DSC08470 Medium.png', alt: 'Caramel Sundae Cup' },
+  { id: '6', src: '/ice-cream images/DSC09262 Medium.png', alt: 'Kashmiri Kulfi Tub' },
+  { id: '7', src: '/ice-cream images/DSC08562 Medium.png', alt: 'Nutty Delight Cone' },
+  { id: '8', src: '/ice-cream images/DSC08771 Medium.png', alt: 'Royal Rajbhog Scoop' },
 ]
 
 // Why Choose Us Features

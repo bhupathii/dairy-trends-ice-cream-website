@@ -2,10 +2,9 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Star } from 'lucide-react'
-import Image from 'next/image'
+import { Star, User } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper/modules'
+import { Autoplay } from 'swiper/modules'
 import { testimonials } from '@/lib/data'
 
 import 'swiper/css'
@@ -54,26 +53,23 @@ export default function TestimonialsSection() {
           transition={{ delay: 0.25, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           <Swiper
-            modules={[Autoplay, Pagination]}
+            modules={[Autoplay]}
             spaceBetween={20}
             slidesPerView={1}
-            autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
-            pagination={{ clickable: true }}
-            grabCursor
+            loop={true}
+            speed={12000}
+            autoplay={{ delay: 0, disableOnInteraction: false }}
+            allowTouchMove={false}
             breakpoints={{
               640: { slidesPerView: 2, spaceBetween: 20 },
               1024: { slidesPerView: 3, spaceBetween: 24 },
             }}
-            className="pb-16 px-1"
+            className="pt-6 pb-16 px-4 testimonials-swiper -mx-4"
           >
             {testimonials.map((testimonial, index) => (
               <SwiperSlide key={testimonial.id} className="h-auto">
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: index * 0.08 + 0.3 }}
-                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="product-card rounded-3xl p-6 lg:p-7 h-full flex flex-col"
+                <div
+                  className="product-card rounded-3xl p-6 lg:p-7 w-full h-full flex flex-col"
                 >
                   {/* Stars */}
                   <div
@@ -95,42 +91,36 @@ export default function TestimonialsSection() {
                   </p>
 
                   {/* Author */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-chocolate/8">
-                    <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-brand-red/20 shrink-0">
-                      <Image
-                        src={testimonial.avatar}
-                        alt={`Photo of ${testimonial.name}`}
-                        fill
-                        className="object-cover"
-                        sizes="44px"
-                      />
+                  <div className="flex items-center gap-3 pt-4 border-t border-chocolate/8 mt-auto">
+                    <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-brand-red/20 shrink-0 bg-chocolate/5 flex items-center justify-center">
+                      <User className="w-5 h-5 text-chocolate/50" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-chocolate leading-tight">{testimonial.name}</p>
                       <p className="text-xs text-chocolate/50 mt-0.5">{testimonial.location}</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </motion.div>
       </div>
 
-      {/* Global Swiper pagination overrides */}
+      {/* Global Swiper styles */}
       <style jsx global>{`
-        .swiper-pagination-bullet {
-          background: var(--chocolate-brown);
-          opacity: 0.2;
-          width: 8px;
-          height: 8px;
-          transition: all 0.3s ease;
+        .testimonials-swiper .swiper-wrapper {
+          transition-timing-function: linear !important;
+          align-items: stretch;
         }
-        .swiper-pagination-bullet-active {
-          background: var(--brand-red);
-          opacity: 1;
-          width: 24px;
-          border-radius: 4px;
+        .testimonials-swiper .swiper-slide {
+          height: auto !important;
+          display: flex;
+        }
+        .testimonials-swiper .product-card:hover {
+          transform: none !important;
+          box-shadow: 0 2px 8px rgba(61, 35, 20, 0.04), 0 8px 24px rgba(61, 35, 20, 0.06) !important;
+          border-color: rgba(61, 35, 20, 0.07) !important;
         }
       `}</style>
     </section>
