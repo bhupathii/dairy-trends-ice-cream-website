@@ -11,7 +11,7 @@ export default function ProductsPage() {
   return (
     <main className="overflow-x-hidden pt-20 bg-white">
       <Navbar />
-      <ProductsSection limit={undefined} showViewAll={false} />
+      <ProductsSection limit={undefined} showViewAll={false} className="pt-4 lg:pt-8" />
       <Footer />
     </main>
   )

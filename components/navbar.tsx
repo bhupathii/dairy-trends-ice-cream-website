@@ -5,12 +5,15 @@ import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import { Menu, X, Phone } from 'lucide-react'
 import Image from 'next/image'
 import { navLinks } from '@/lib/data'
+import { useRouter, usePathname } from 'next/navigation'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState('#home')
   const layoutId = useId()
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 60)
@@ -38,11 +41,18 @@ export default function Navbar() {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     setIsMobileMenuOpen(false)
-    setActiveLink(href)
+    
+    // If element doesn't exist on current page, navigate to home page with the hash
     const element = document.querySelector(href)
+    if (!element && pathname !== '/') {
+      router.push(`/${href}`)
+      return
+    }
+
+    setActiveLink(href)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
-      window.history.pushState(null, '', href)
+      window.history.pushState(null, '', pathname === '/' ? href : pathname + href)
     }
   }
 
@@ -124,7 +134,7 @@ export default function Navbar() {
                 whileTap={{ scale: 0.96 }}
                 className="bg-brand-red text-white px-5 py-2.5 rounded-full font-semibold text-sm btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                Order Now
+                Franchise Enquiry
               </motion.a>
             </div>
 
@@ -235,7 +245,7 @@ export default function Navbar() {
                   whileTap={{ scale: 0.96 }}
                   className="block w-full bg-brand-red text-white px-6 py-3.5 rounded-2xl font-semibold text-center btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
                 >
-                  Order Now
+                  Franchise Enquiry
                 </motion.a>
               </div>
             </motion.div>

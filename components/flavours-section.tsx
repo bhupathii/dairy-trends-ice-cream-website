@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { ShoppingCart, Eye } from 'lucide-react'
+import { Eye } from 'lucide-react'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
@@ -70,22 +70,12 @@ export default function FlavoursSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
                   
                   {/* Hover Actions */}
-                  <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
-                    <motion.button
-                      type="button"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex-1 bg-brand-red text-white py-2 rounded-full text-sm font-semibold flex items-center justify-center gap-1 focus-visible:outline-white focus-visible:outline-2"
-                      aria-label={`Add ${flavour.name} to cart`}
-                    >
-                      <ShoppingCart className="w-4 h-4" aria-hidden="true" />
-                      Add
-                    </motion.button>
+                  <div className="absolute bottom-4 left-4 right-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
                     <motion.button
                       type="button"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className="bg-white/90 text-chocolate p-2 rounded-full focus-visible:outline-white focus-visible:outline-2 touch-target"
+                      className="bg-white/90 text-chocolate p-2 rounded-full focus-visible:outline-white focus-visible:outline-2 flex items-center justify-center touch-target shadow-lg"
                       aria-label={`View details of ${flavour.name}`}
                     >
                       <Eye className="w-4 h-4" aria-hidden="true" />
@@ -104,10 +94,6 @@ export default function FlavoursSection() {
                     />
                   </div>
                   <p className="text-chocolate/60 text-sm mb-3 line-clamp-2">{flavour.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-brand-red">{flavour.price}</span>
-                    <span className="text-xs text-chocolate/50">per scoop</span>
-                  </div>
                 </div>
               </div>
             </motion.div>
@@ -151,18 +137,6 @@ export default function FlavoursSection() {
                       />
                     </div>
                     <p className="text-chocolate/60 text-sm mb-3 line-clamp-2">{flavour.description}</p>
-                    <div className="flex items-center justify-between mt-auto">
-                      <span className="text-lg font-bold text-brand-red">{flavour.price}</span>
-                      <motion.button
-                        type="button"
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-brand-red text-white px-4 py-1.5 rounded-full text-sm font-semibold flex items-center gap-1 focus-visible:outline-brand-red focus-visible:outline-2"
-                        aria-label={`Add ${flavour.name} to cart`}
-                      >
-                        <ShoppingCart className="w-3 h-3" aria-hidden="true" />
-                        Add
-                      </motion.button>
-                    </div>
                   </div>
                 </div>
               </SwiperSlide>

@@ -55,7 +55,7 @@ export default function AboutSection() {
                 className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl"
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&h=700&fit=crop"
+                  src="/ice-cream images/DSC09384 Medium.png"
                   alt="A delicious Dairy Trends ice cream being served"
                   fill
                   className="object-cover"
@@ -92,7 +92,7 @@ export default function AboutSection() {
                   className="w-28 h-28 lg:w-36 lg:h-36 rounded-2xl overflow-hidden shadow-xl border-4 border-white relative"
                 >
                   <Image
-                    src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=200&h=200&fit=crop"
+                    src="/ice-cream images/DSC09037 Medium.png"
                     alt="Close up of an ice cream cone"
                     fill
                     className="object-cover"

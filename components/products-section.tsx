@@ -6,10 +6,12 @@ import { ArrowRight, Tag } from 'lucide-react'
 import Image from 'next/image'
 import { products } from '@/lib/data'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 interface ProductsSectionProps {
   limit?: number
   showViewAll?: boolean
+  className?: string
 }
 
 interface ProductCardProps {
@@ -87,22 +89,12 @@ function ProductCard({ product, index, isInView, static: isStatic }: ProductCard
           {product.description}
         </p>
 
-        <motion.button
-          type="button"
-          whileHover={{ x: 2 }}
-          whileTap={{ scale: 0.97 }}
-          className="self-start flex items-center gap-2 bg-brand-red/8 hover:bg-brand-red text-brand-red hover:text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-250 focus-visible:outline-brand-red focus-visible:outline-2"
-          aria-label={`Explore ${product.name}`}
-        >
-          <span>Explore</span>
-          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-        </motion.button>
       </div>
     </motion.article>
   )
 }
 
-export default function ProductsSection({ limit = 8, showViewAll = true }: ProductsSectionProps = {}) {
+export default function ProductsSection({ limit = 8, showViewAll = true, className }: ProductsSectionProps = {}) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [activeCategory, setActiveCategory] = useState('All')
@@ -115,7 +107,7 @@ export default function ProductsSection({ limit = 8, showViewAll = true }: Produ
   const displayedProducts = limit ? filteredProducts.slice(0, limit) : filteredProducts
 
   return (
-    <section id="products" className="relative py-24 lg:py-32 overflow-hidden bg-white">
+    <section id="products" className={cn("relative py-24 lg:py-32 overflow-hidden bg-white", className)}>
 
       {/* ── Header (full bleed container) ── */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>

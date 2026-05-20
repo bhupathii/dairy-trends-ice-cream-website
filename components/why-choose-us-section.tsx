@@ -110,14 +110,14 @@ export default function WhyChooseUsSection() {
           className="text-center mt-10"
         >
           <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white border border-chocolate/8 px-6 py-4 rounded-2xl">
-            <p className="text-chocolate/75 text-sm">Ready to taste the difference?</p>
+            <p className="text-chocolate/75 text-sm">Ready to partner with us?</p>
             <motion.button
               type="button"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               className="bg-brand-red text-white px-5 py-2 rounded-full text-sm font-semibold btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
             >
-              Order Now
+              Franchise Enquiry
             </motion.button>
           </div>
         </motion.div>

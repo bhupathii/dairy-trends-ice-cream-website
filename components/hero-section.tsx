@@ -52,7 +52,7 @@ export default function HeroSection() {
       className="relative min-h-screen overflow-hidden bg-white flex items-center"
       aria-label="Hero section"
     >
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24 lg:pt-32 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 lg:pt-28 lg:pb-24 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[82vh]">
 
           {/* ── Left: Content ── */}
@@ -103,7 +103,7 @@ export default function HeroSection() {
                 className="inline-flex items-center justify-center gap-2 bg-brand-red text-white px-8 py-4 rounded-2xl font-semibold text-base btn-glow focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 <IceCream className="w-5 h-5" aria-hidden="true" />
-                Explore Flavours
+                View Flavours
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.04 }}
@@ -111,7 +111,7 @@ export default function HeroSection() {
                 onClick={() => scrollToSection('#contact')}
                 className="inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm text-chocolate px-8 py-4 rounded-2xl font-semibold text-base border border-chocolate/15 shadow-sm hover:border-golden hover:bg-golden/5 transition-all focus-visible:outline-brand-red focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                Order Now
+                Franchise Enquiry
               </motion.button>
             </motion.div>
 
@@ -153,7 +153,7 @@ export default function HeroSection() {
             >
               <div className="relative w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[440px] lg:h-[440px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1576506295286-5cda18df43e7?w=600&h=600&fit=crop"
+                  src="/ice-cream images/DSC08470 Medium.png"
                   alt="Delicious strawberry and vanilla ice cream cone from Dairy Trends"
                   fill
                   className="object-contain drop-shadow-2xl"
@@ -191,7 +191,7 @@ export default function HeroSection() {
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
           className="scroll-indicator focus-visible:outline-brand-red focus-visible:outline-2 rounded-full cursor-pointer bg-transparent border-2 border-chocolate/20 hover:border-brand-red/40 transition-colors"
-          aria-label="Scroll to explore flavours"
+          aria-label="Scroll to view flavours"
         >
           <ChevronDown className="w-4 h-4 text-chocolate/40" />
         </motion.button>
