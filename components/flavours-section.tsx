@@ -55,14 +55,10 @@ export default function FlavoursSection() {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -8 }}
-              className="group cursor-pointer h-full"
+              className="cursor-pointer h-full"
               onClick={handleScrollToProducts}
             >
-              <div className="product-card rounded-[32px] overflow-hidden shadow-md hover:shadow-2xl border border-chocolate/5 hover:border-brand-red/30 transition-all duration-500 flex flex-col h-full bg-white relative">
-                {/* Subtle top border accent on hover */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-brand-red scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left z-20" />
-                
+              <div className="product-card rounded-[32px] overflow-hidden shadow-md border border-chocolate/5 flex flex-col h-full bg-white relative">
                 {/* Image Container */}
                 <div className="relative h-52 overflow-hidden bg-cream shrink-0">
                   <Image
@@ -70,14 +66,14 @@ export default function FlavoursSection() {
                     alt={flavour.name}
                     width={400}
                     height={300}
-                    className="w-full h-full object-cover transition-transform duration-500 scale-100 group-hover:scale-110"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-chocolate/20 via-transparent to-transparent pointer-events-none opacity-60" />
                 </div>
 
                 {/* Content */}
                 <div className="p-6 bg-white flex flex-col flex-grow">
-                  <h3 className="font-extrabold text-chocolate text-lg lg:text-xl group-hover:text-brand-red transition-colors duration-300 mb-2">{flavour.name}</h3>
+                  <h3 className="font-extrabold text-chocolate text-lg lg:text-xl mb-2">{flavour.name}</h3>
                   <p className="text-chocolate/65 text-sm lg:text-base leading-relaxed line-clamp-2">{flavour.description}</p>
                 </div>
               </div>
